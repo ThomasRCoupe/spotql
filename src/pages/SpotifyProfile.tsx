@@ -1,6 +1,6 @@
 export const SpotifyProfile = () => (
-  <div>
-    <h1>Display your Spotify profile data</h1>
+  <div className="w-full h-full">
+    <h1 className="text-3xl font-bold">SpotQL</h1>
 
     <section id="profile">
       <h2>
