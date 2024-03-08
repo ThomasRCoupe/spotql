@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
 import { Button } from "../design-system/Button";
+import { Avatar } from "../design-system/Avatar";
 
 export const SpotifyProfile = () => {
   const { profile, status, clearToken } = useSpotifyUserProfile();
@@ -29,7 +30,11 @@ export const SpotifyProfile = () => {
         </h2>
         <span id="avatar">
           {profile.images[0] ? (
-            <img width={50} height={50} src={profile.images[0].url} />
+            <Avatar
+              src={profile.images[0].url}
+              alt={`${profile.display_name}'s avatar`}
+              size="small"
+            />
           ) : undefined}
         </span>
         <ul>
