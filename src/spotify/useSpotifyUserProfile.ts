@@ -29,7 +29,17 @@ export const useSpotifyUserProfile = () => {
 
     const getAndSetSpotifyUserProfile = async () => {
       try {
-        const profile = await fetchSpotifyUserProfile(token);
+        const response = await fetchSpotifyUserProfile(token);
+        if (!response.ok && response.status === 401) {
+          clearToken();
+        }
+        if (!response.ok) {
+          setStatus("failed");
+          return;
+        }
+
+        const profile = await response.json();
+
         setProfile(profile as SpotifyUserProfile);
         setStatus("success");
       } catch {
@@ -38,16 +48,14 @@ export const useSpotifyUserProfile = () => {
     };
 
     void getAndSetSpotifyUserProfile();
-  }, [token, tokenStatus, status]);
+  }, [tokenStatus]);
 
   return { profile, status, clearToken };
 };
 
 const fetchSpotifyUserProfile = async (token: string) => {
-  const result = await fetch("https://api.spotify.com/v1/me", {
+  return await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  return await result.json();
 };
