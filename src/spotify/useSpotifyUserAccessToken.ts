@@ -7,8 +7,14 @@ export const useSpotifyUserAccessToken = () => {
   const [token, setToken] = useState<string>();
 
   useEffect(() => {
-    const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+    const storedToken = Cookies.get("spotifyUserAccessToken");
+    if (storedToken) {
+      setStatus("success");
+      setToken(storedToken);
+      return;
+    }
 
+    const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
 
