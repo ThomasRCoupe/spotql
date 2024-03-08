@@ -1,8 +1,11 @@
 import { Plugin, PluginKey } from "@tiptap/pm/state";
+import { EditorView } from "@tiptap/pm/view";
 
 const SUGGESTOR_PLUGIN_KEY = new PluginKey("suggestor");
 
-export const SuggestorPlugin = (suggest: (textBeforeCursor: string) => void) =>
+export const SuggestorPlugin = (
+  suggest: (textBeforeCursor: string, selectionRect: unknown) => void
+) =>
   new Plugin({
     key: SUGGESTOR_PLUGIN_KEY,
     view: () => {
@@ -23,8 +26,32 @@ export const SuggestorPlugin = (suggest: (textBeforeCursor: string) => void) =>
             return;
           }
 
-          suggest(textBeforeCursor);
+          const selectionRect = getSelectionRect(view);
+          if (!selectionRect) {
+            return;
+          }
+
+          suggest(textBeforeCursor, selectionRect);
         },
       };
     },
   });
+
+const getSelectionRect = (view: EditorView) => {
+  const { from, to } = view.state.selection;
+  const startCoords = view.coordsAtPos(from);
+  const endCoords = view.coordsAtPos(to);
+
+  if (!startCoords || !endCoords) {
+    return;
+  }
+
+  return {
+    left: startCoords.left,
+    top: startCoords.top,
+    right: endCoords.right,
+    bottom: endCoords.bottom,
+    width: endCoords.right - startCoords.left,
+    height: endCoords.bottom - startCoords.top,
+  };
+};
