@@ -1,11 +1,13 @@
 import { useEditor, EditorContent } from "@tiptap/react";
-import { Paragraph } from "./extensions/Paragraph";
-import { Document } from "./extensions/Document";
-import { Text } from "./extensions/Text";
+import { Paragraph } from "./extensions/basic/Paragraph";
+import { Document } from "./extensions/basic/Document";
+import { Text } from "./extensions/basic/Text";
+import { GetRandom } from "./extensions/selectors/GetRandom";
+import { CommandSuggestor } from "./extensions/suggestions/CommandSuggestor";
 
 export const QueryEditor = () => {
   const editor = useEditor({
-    extensions: [Text, Paragraph, Document],
+    extensions: [Document, Paragraph, Text, CommandSuggestor, GetRandom],
     content: "<p>Hello World!</p>",
   });
 
