@@ -1,17 +1,10 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import { SpotifyAppSecrets } from "./pages/SpotifyAppSecrets";
-import { AppContainer } from "./AppContainer";
-import { SpotifyProfile } from "./pages/SpotifyProfile";
+import { App } from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <AppContainer>
-      <Routes>
-        <Route path="/" element={<SpotifyProfile />} />
-        <Route path="/secrets" element={<SpotifyAppSecrets />} />
-      </Routes>
-    </AppContainer>
+    <App />
   </BrowserRouter>
 );

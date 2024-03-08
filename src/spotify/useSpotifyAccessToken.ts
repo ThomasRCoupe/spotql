@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-
-export type FetchState = "fetching" | "failed" | "success";
+import { FetchState } from "../types";
 
 export const useSpotifyAccessToken = () => {
   const [fetchStatus, setFetchStatus] = useState<FetchState>("fetching");
