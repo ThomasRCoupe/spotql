@@ -8,6 +8,15 @@ dependencies:
   '@tiptap/core':
     specifier: ^2.2.4
     version: 2.2.4(@tiptap/pm@2.2.4)
+  '@tiptap/extension-document':
+    specifier: ^2.2.4
+    version: 2.2.4(@tiptap/core@2.2.4)
+  '@tiptap/extension-paragraph':
+    specifier: ^2.2.4
+    version: 2.2.4(@tiptap/core@2.2.4)
+  '@tiptap/extension-text':
+    specifier: ^2.2.4
+    version: 2.2.4(@tiptap/core@2.2.4)
   '@tiptap/pm':
     specifier: ^2.2.4
     version: 2.2.4
@@ -679,6 +688,14 @@ packages:
       tippy.js: 6.3.7
     dev: false
 
+  /@tiptap/extension-document@2.2.4(@tiptap/core@2.2.4):
+    resolution: {integrity: sha512-z+05xGK0OFoXV1GL+/8bzcZuWMdMA3+EKwk5c+iziG60VZcvGTF7jBRsZidlu9Oaj0cDwWHCeeo6L9SgSh6i2A==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.4(@tiptap/pm@2.2.4)
+    dev: false
+
   /@tiptap/extension-floating-menu@2.2.4(@tiptap/core@2.2.4)(@tiptap/pm@2.2.4):
     resolution: {integrity: sha512-U25l7PEzOmlAPugNRl8t8lqyhQZS6W/+3f92+FdwW9qXju3i62iX/3OGCC3Gv+vybmQ4fbZmMjvl+VDfenNi3A==}
     peerDependencies:
@@ -688,6 +705,22 @@ packages:
       '@tiptap/core': 2.2.4(@tiptap/pm@2.2.4)
       '@tiptap/pm': 2.2.4
       tippy.js: 6.3.7
+    dev: false
+
+  /@tiptap/extension-paragraph@2.2.4(@tiptap/core@2.2.4):
+    resolution: {integrity: sha512-m1KwyvTNJxsq7StbspbcOhxO4Wk4YpElDbqOouWi+H4c8azdpI5Pn96ZqhFeE9bSyjByg6OcB/wqoJsLbeFWdQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.4(@tiptap/pm@2.2.4)
+    dev: false
+
+  /@tiptap/extension-text@2.2.4(@tiptap/core@2.2.4):
+    resolution: {integrity: sha512-NlKHMPnRJXB+0AGtDlU0P2Pg+SdesA2lMMd7JzDUgJgL7pX2jOb8eUqSeOjFKuSzFSqYfH6C3o6mQiNhuQMv+g==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.2.4(@tiptap/pm@2.2.4)
     dev: false
 
   /@tiptap/pm@2.2.4:
