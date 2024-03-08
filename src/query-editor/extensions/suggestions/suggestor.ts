@@ -4,7 +4,11 @@ import { Plugin, PluginKey } from "@tiptap/pm/state";
 const SUGGESTOR_PLUGIN_KEY = new PluginKey("suggestor");
 
 export const SuggestorPlugin = (
-  suggest: (textBeforeCursor: string, selectionRect: DOMRect) => void
+  onChange: (
+    textBeforeCursor: string,
+    selectionRect: DOMRect,
+    docChanged: boolean
+  ) => void
 ) =>
   new Plugin({
     key: SUGGESTOR_PLUGIN_KEY,
@@ -32,7 +36,7 @@ export const SuggestorPlugin = (
             selection.to
           );
 
-          suggest(textBeforeCursor, selectionRect);
+          onChange(textBeforeCursor, selectionRect, docChanged);
         },
       };
     },

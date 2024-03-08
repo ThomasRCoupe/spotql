@@ -1,5 +1,5 @@
 import { Editor, Extension } from "@tiptap/core";
-import { SuggestorPlugin } from "./suggestions";
+import { SuggestorPlugin } from "./suggestor";
 import { Command } from "../types";
 import { Popup, openPopup } from "../../utils/popup";
 import {
@@ -37,21 +37,32 @@ export const CommandSuggestor = Extension.create<
 
   addProseMirrorPlugins() {
     return [
-      SuggestorPlugin((textBeforeCursor: string, referenceRect: DOMRect) => {
-        if (this.storage.popup) {
-          this.storage.popup.update({ textBeforeCursor });
-          return;
-        }
+      SuggestorPlugin(
+        (
+          textBeforeCursor: string,
+          referenceRect: DOMRect,
+          docChanged: boolean
+        ) => {
+          if (!docChanged && this.storage.popup) {
+            this.storage.popup.update({
+              textBeforeCursor,
+              commands: this.storage.commands,
+            });
+            return;
+          }
 
-        this.storage.popup = openPopup({
-          editor: this.editor,
-          component: CommandSuggestions,
-          props: { textBeforeCursor },
-          referenceRect,
-          placement: "bottom-start",
-          offset: 0,
-        });
-      }),
+          this.storage.popup?.close();
+
+          this.storage.popup = openPopup({
+            editor: this.editor,
+            component: CommandSuggestions,
+            props: { textBeforeCursor, commands: this.storage.commands },
+            referenceRect,
+            placement: "bottom-start",
+            offset: 0,
+          });
+        }
+      ),
     ];
   },
 });
