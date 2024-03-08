@@ -24,15 +24,19 @@ export const useSpotifyUserProfile = () => {
     }
 
     const getAndSetSpotifyUserProfile = async () => {
-      const profile = await fetchSpotifyUserProfile(token);
-
-      setProfile(profile as SpotifyUserProfile);
+      try {
+        const profile = await fetchSpotifyUserProfile(token);
+        setProfile(profile as SpotifyUserProfile);
+        setStatus("success");
+      } catch {
+        setStatus("failed");
+      }
     };
 
     void getAndSetSpotifyUserProfile();
   }, [token, tokenStatus, status]);
 
-  return [profile, status];
+  return { profile, status };
 };
 
 const fetchSpotifyUserProfile = async (token: string) => {
