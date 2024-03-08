@@ -42,9 +42,14 @@ export const useSpotifyUserAccessToken = () => {
     }
   }, []);
 
+  const clearToken = () => {
+    Cookies.remove("spotifyUserAccessToken");
+  };
+
   return {
     token,
     status,
+    clearToken,
   };
 };
 

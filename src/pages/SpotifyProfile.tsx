@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
 
 export const SpotifyProfile = () => {
-  const { profile, status } = useSpotifyUserProfile();
+  const { profile, status, clearToken } = useSpotifyUserProfile();
+  const navigate = useNavigate();
 
   if (status === "fetching") {
     return <h1>Loading...</h1>;
@@ -10,6 +12,11 @@ export const SpotifyProfile = () => {
   if (status === "failed" || !profile) {
     return <h1>Fetching Profile Failed!</h1>;
   }
+
+  const handleSignOut = () => {
+    clearToken();
+    navigate("/");
+  };
 
   return (
     <div className="w-full h-full">
@@ -53,6 +60,8 @@ export const SpotifyProfile = () => {
           </li>
         </ul>
       </section>
+
+      <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };

@@ -4,7 +4,11 @@ import { FetchState as FetchStatus } from "../types";
 import { SpotifyUserProfile } from "./types";
 
 export const useSpotifyUserProfile = () => {
-  const { token, status: tokenStatus } = useSpotifyUserAccessToken();
+  const {
+    token,
+    status: tokenStatus,
+    clearToken,
+  } = useSpotifyUserAccessToken();
   const [status, setStatus] = useState<FetchStatus>("fetching");
   const [profile, setProfile] = useState<SpotifyUserProfile>();
 
@@ -36,7 +40,7 @@ export const useSpotifyUserProfile = () => {
     void getAndSetSpotifyUserProfile();
   }, [token, tokenStatus, status]);
 
-  return { profile, status };
+  return { profile, status, clearToken };
 };
 
 const fetchSpotifyUserProfile = async (token: string) => {
