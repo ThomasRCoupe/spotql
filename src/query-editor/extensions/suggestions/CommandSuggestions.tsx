@@ -1,13 +1,9 @@
-import { Command } from "../types";
-
-interface CommandSuggestionsProps {
-  commands: Command[];
+export interface CommandSuggestionsProps {
+  textBeforeCursor: string;
 }
 
-export const CommandSuggestions = ({ commands }: CommandSuggestionsProps) => (
-  <div>
-    {commands.map((command) => (
-      <div>{command.displayName}</div>
-    ))}
-  </div>
-);
+export const CommandSuggestions = ({
+  textBeforeCursor,
+}: CommandSuggestionsProps) => {
+  return <div>{textBeforeCursor}</div>;
+};

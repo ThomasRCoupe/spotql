@@ -2,6 +2,11 @@ import { Editor } from "@tiptap/core";
 import { ReactRenderer } from "@tiptap/react";
 import tippy, { Placement } from "tippy.js";
 
+export interface Popup<P> {
+  update: (props: P) => void;
+  close: () => void;
+}
+
 interface OpenPopupParams<P> {
   component: React.FunctionComponent<P>;
   props: P;
