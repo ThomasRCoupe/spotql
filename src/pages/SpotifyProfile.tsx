@@ -24,7 +24,7 @@ export const SpotifyProfile = () => {
     <div className="w-full h-full">
       <h1 className="text-3xl font-bold">SpotQL</h1>
 
-      <section id="profile">
+      <section className="flex flex-col gap-2" id="profile">
         <h2 className="text-light-grey">
           Logged in as <span id="displayName">{profile.display_name}</span>
         </h2>
@@ -37,7 +37,7 @@ export const SpotifyProfile = () => {
             />
           ) : undefined}
         </span>
-        <ul>
+        <ul className="text-sm">
           <li>
             <span className="text-light-grey">User ID: </span>
             <span>{profile.id}</span>
@@ -59,9 +59,10 @@ export const SpotifyProfile = () => {
             </a>
           </li>
         </ul>
+        <div>
+          <Button onClick={handleSignOut}>Sign Out</Button>
+        </div>
       </section>
-
-      <Button onClick={handleSignOut}>Sign Out</Button>
     </div>
   );
 };
