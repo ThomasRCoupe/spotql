@@ -9,6 +9,7 @@ export default {
       "dark-grey": "#121212",
       "light-grey": "#A7A7A7",
       white: colors.white,
+      "spotify-green": "#1abc54",
     },
     extend: {},
   },

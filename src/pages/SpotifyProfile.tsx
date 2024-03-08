@@ -20,23 +20,31 @@ export const SpotifyProfile = () => {
     navigate("/");
   };
 
+  const handleQuery = () => {
+    navigate("/query");
+  };
+
   return (
     <div className="w-full h-full">
-      <h1 className="text-3xl font-bold">SpotQL</h1>
+      <section className="mb-2 flex flex-col gap-2">
+        <h1 className="text-3xl font-bold">SpotQL</h1>
+        <div className="flex gap-2 items-center">
+          <span id="avatar">
+            {profile.images[0] ? (
+              <Avatar
+                src={profile.images[0].url}
+                alt={`${profile.display_name}'s avatar`}
+                size="small"
+              />
+            ) : undefined}
+          </span>
+          <h2 className="text-light-grey">
+            Logged in as <span id="displayName">{profile.display_name}</span>
+          </h2>
+        </div>
+      </section>
 
-      <section className="flex flex-col gap-2" id="profile">
-        <h2 className="text-light-grey">
-          Logged in as <span id="displayName">{profile.display_name}</span>
-        </h2>
-        <span id="avatar">
-          {profile.images[0] ? (
-            <Avatar
-              src={profile.images[0].url}
-              alt={`${profile.display_name}'s avatar`}
-              size="small"
-            />
-          ) : undefined}
-        </span>
+      <section className="flex flex-col gap-2">
         <ul className="text-sm">
           <li>
             <span className="text-light-grey">User ID: </span>
@@ -59,8 +67,13 @@ export const SpotifyProfile = () => {
             </a>
           </li>
         </ul>
-        <div>
-          <Button onClick={handleSignOut}>Sign Out</Button>
+        <div className="flex gap-2">
+          <Button variant="primary" onClick={handleQuery}>
+            Query
+          </Button>
+          <Button variant="secondary" onClick={handleSignOut}>
+            Sign Out
+          </Button>
         </div>
       </section>
     </div>

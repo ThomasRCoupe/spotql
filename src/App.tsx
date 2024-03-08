@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { SpotifyProfile } from "./pages/SpotifyProfile";
 import { SpotifyAppSecrets } from "./pages/SpotifyAppSecrets";
 import "./App.css";
+import { SpotifyQuery } from "./pages/SpotifyQuery";
 
 export const App = () => (
   <div className="w-screen h-screen flex items-center justify-center bg-black">
@@ -9,6 +10,7 @@ export const App = () => (
       <Routes>
         <Route path="/" element={<Navigate to="/profile" />} />
         <Route path="/profile" element={<SpotifyProfile />} />
+        <Route path="/query" element={<SpotifyQuery />} />
         <Route path="/secrets" element={<SpotifyAppSecrets />} />
       </Routes>
     </div>

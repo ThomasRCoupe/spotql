@@ -1,14 +1,25 @@
+import clsx from "clsx";
 import { ReactNode } from "react";
+
+export type ButtonVariant = "primary" | "secondary";
 
 interface ButtonProps {
   onClick: () => void;
+  variant: ButtonVariant;
   children: ReactNode;
 }
 
-export const Button = ({ children, onClick: handleClick }: ButtonProps) => (
+export const Button = ({
+  children,
+  variant,
+  onClick: handleClick,
+}: ButtonProps) => (
   <button
     onClick={handleClick}
-    className="w-auto py-1 px-3 rounded-full bg-white/5"
+    className={clsx(
+      "w-auto py-1 px-3 rounded-full font-medium",
+      variant === "primary" ? "bg-spotify-green text-black" : "bg-white/5"
+    )}
   >
     {children}
   </button>
