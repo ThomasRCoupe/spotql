@@ -3,8 +3,8 @@ import { FetchState } from "../types";
 import Cookies from "js-cookie";
 
 export const useSpotifyUserAccessToken = () => {
-  const [fetchStatus, setFetchStatus] = useState<FetchState>("fetching");
-  const [accessToken, setAccessToken] = useState<string>();
+  const [status, setStatus] = useState<FetchState>("fetching");
+  const [token, setToken] = useState<string>();
 
   useEffect(() => {
     const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
@@ -18,7 +18,7 @@ export const useSpotifyUserAccessToken = () => {
       const getAndSetAccessToken = async () => {
         const response = await fetchUserAccessToken(clientId, code);
         if (!response.ok) {
-          setFetchStatus("failed");
+          setStatus("failed");
           return;
         }
 
@@ -28,8 +28,8 @@ export const useSpotifyUserAccessToken = () => {
           expires: token.expires_in,
         });
 
-        setFetchStatus("success");
-        setAccessToken(token.access_token);
+        setStatus("success");
+        setToken(token.access_token);
       };
 
       void getAndSetAccessToken();
@@ -37,8 +37,8 @@ export const useSpotifyUserAccessToken = () => {
   }, []);
 
   return {
-    status: fetchStatus,
-    accessToken: accessToken,
+    token,
+    status,
   };
 };
 

@@ -3,22 +3,22 @@ import Cookies from "js-cookie";
 import { FetchState } from "../types";
 
 export const useSpotifyAccessToken = () => {
-  const [fetchStatus, setFetchStatus] = useState<FetchState>("fetching");
-  const [accessToken, setAccessToken] = useState<string>();
+  const [status, setStatus] = useState<FetchState>("fetching");
+  const [token, setToken] = useState<string>();
 
   useEffect(() => {
     const storedToken = Cookies.get("spotifyAccessToken");
 
     if (storedToken) {
-      setFetchStatus("success");
-      setAccessToken(storedToken);
+      setStatus("success");
+      setToken(storedToken);
       return;
     }
 
     const getAndSetAccessToken = async () => {
       const response = await fetchAccessToken();
       if (!response.ok) {
-        setFetchStatus("failed");
+        setStatus("failed");
         return;
       }
 
@@ -28,16 +28,16 @@ export const useSpotifyAccessToken = () => {
         expires: token.expires_in,
       });
 
-      setFetchStatus("success");
-      setAccessToken(token.access_token);
+      setStatus("success");
+      setToken(token.access_token);
     };
 
     void getAndSetAccessToken();
   }, []);
 
   return {
-    status: fetchStatus,
-    accessToken: accessToken,
+    token,
+    status,
   };
 };
 

@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
 import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
 import { FetchState as FetchStatus } from "../types";
+import { SpotifyUserProfile } from "./types";
 
 export const useSpotifyUserProfile = () => {
-  const { accessToken, status: accessTokenStatus } =
-    useSpotifyUserAccessToken();
+  const { token, status: tokenStatus } = useSpotifyUserAccessToken();
   const [status, setStatus] = useState<FetchStatus>("fetching");
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState<SpotifyUserProfile>();
 
   useEffect(() => {
-    if (accessTokenStatus !== "success" && accessTokenStatus !== status) {
-      setStatus(accessTokenStatus);
+    if (tokenStatus !== "success" && tokenStatus !== status) {
+      setStatus(tokenStatus);
       return;
     }
 
-    if (accessTokenStatus !== "success") {
+    if (tokenStatus !== "success") {
       return;
     }
 
-    if (!accessToken) {
+    if (!token) {
       setStatus("failed");
       return;
     }
 
     const getAndSetSpotifyUserProfile = async () => {
-      const profile = await fetchSpotifyUserProfile(accessToken);
+      const profile = await fetchSpotifyUserProfile(token);
 
-      setProfile(profile);
+      setProfile(profile as SpotifyUserProfile);
     };
 
     void getAndSetSpotifyUserProfile();
-  }, [accessToken, accessTokenStatus, status]);
+  }, [token, tokenStatus, status]);
 
   return [profile, status];
 };
