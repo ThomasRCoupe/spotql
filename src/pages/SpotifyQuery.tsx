@@ -1,4 +1,4 @@
-import { QueryEditor } from "../query-editor/QueryEditor";
+import { QueryEditor } from "../query-editor-2/QueryEditor";
 
 export const SpotifyQuery = () => {
   return (
