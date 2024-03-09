@@ -25,18 +25,18 @@ export const SuggestorPlugin = (
             return;
           }
 
-          const textBeforeCursor = selection.$from.nodeBefore?.text;
-          if (!textBeforeCursor) {
+          const nodeBeforeCursor = selection.$from.nodeBefore;
+          if (!nodeBeforeCursor || !nodeBeforeCursor.text) {
             return;
           }
 
           const selectionRect = posToDOMRect(
             view,
-            selection.from,
+            selection.to - nodeBeforeCursor.nodeSize,
             selection.to
           );
 
-          onChange(textBeforeCursor, selectionRect, docChanged);
+          onChange(nodeBeforeCursor.text, selectionRect, docChanged);
         },
       };
     },
