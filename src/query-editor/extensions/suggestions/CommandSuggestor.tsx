@@ -59,7 +59,7 @@ export const CommandSuggestor = Extension.create<
             props: { textBeforeCursor, commands: this.storage.commands },
             referenceRect,
             placement: "bottom-start",
-            offset: 0,
+            offset: { x: -8, y: 10 },
           });
         }
       ),

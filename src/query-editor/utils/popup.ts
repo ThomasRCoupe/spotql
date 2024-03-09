@@ -13,7 +13,10 @@ interface OpenPopupParams<P> {
   editor: Editor;
   referenceRect: DOMRect;
   placement: Placement;
-  offset: number;
+  offset?: {
+    x: number;
+    y: number;
+  };
 }
 
 export const openPopup = <P>({
@@ -22,7 +25,7 @@ export const openPopup = <P>({
   editor,
   referenceRect,
   placement,
-  offset,
+  offset = { x: 0, y: 0 },
 }: OpenPopupParams<P>) => {
   const renderer = new ReactRenderer(component, {
     editor,
@@ -37,7 +40,7 @@ export const openPopup = <P>({
     interactive: true,
     trigger: "manual",
     placement,
-    offset: [0, offset],
+    offset: [offset.x, offset.y],
   })[0];
 
   if (!popup) {
