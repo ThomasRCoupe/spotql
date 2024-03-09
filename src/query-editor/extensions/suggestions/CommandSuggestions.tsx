@@ -1,4 +1,4 @@
-import { Command } from "../types";
+import { Command } from "../../types";
 
 export interface CommandSuggestionsProps {
   textBeforeCursor: string;
@@ -18,7 +18,7 @@ export const CommandSuggestions = ({
   }
 
   return (
-    <div className="w-32 p-2 rounded-md bg-dark-grey font-mono">
+    <div className="w-64 p-2 rounded-md bg-dark-grey font-mono">
       {filteredCommands.map((command) => (
         <div key={command.nodeName}>{command.displayName}</div>
       ))}

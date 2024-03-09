@@ -1,6 +1,6 @@
 import { Editor, Extension } from "@tiptap/core";
 import { SuggestorPlugin } from "./suggestor";
-import { Command } from "../types";
+import { Command } from "../../types";
 import { Popup, openPopup } from "../../utils/popup";
 import {
   CommandSuggestions,
@@ -59,7 +59,7 @@ export const CommandSuggestor = Extension.create<
             props: { textBeforeCursor, commands: this.storage.commands },
             referenceRect,
             placement: "bottom-start",
-            offset: { x: -8, y: 10 },
+            offset: { x: -16, y: 18 },
           });
         }
       ),
