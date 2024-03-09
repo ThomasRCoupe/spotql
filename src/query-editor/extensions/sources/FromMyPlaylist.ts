@@ -1,6 +1,6 @@
-import { createParameterisedCommandNode as createCommandNodeWithArgument } from "../../utils/commandNode";
+import { createCommandNodeWithArgument } from "../../utils/commandNode";
 
-export const FromMyPlaylist = createCommandNodeWithArgument({
-  nodeName: "fromMyPlaylist",
-  displayName: "FROM MY PLAYLIST",
-});
+export const FromMyPlaylist = createCommandNodeWithArgument(
+  "fromMyPlaylist",
+  "FROM MY PLAYLIST"
+);

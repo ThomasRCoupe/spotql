@@ -1,6 +1,3 @@
-import { createParameterisedCommandNode as createCommandNodeWithArgument } from "../../utils/commandNode";
+import { createCommandNodeWithArgument } from "../../utils/commandNode";
 
-export const GetTop = createCommandNodeWithArgument({
-  nodeName: "getTop",
-  displayName: "GET TOP",
-});
+export const GetTop = createCommandNodeWithArgument("getTop", "GET TOP");

@@ -1,5 +1,5 @@
-import { Editor, Extension } from "@tiptap/core";
-import { SuggestorPlugin } from "./suggestor";
+import { Editor, Extension, Range } from "@tiptap/core";
+import { SuggestionEventType, SuggestorPlugin } from "./suggestor";
 import { Command } from "../../types";
 import { Popup, openPopup } from "../../utils/popup";
 import {
@@ -22,6 +22,70 @@ export const registerCommand = (editor: Editor, command: Command) => {
   commandSuggestorStorage.commands.push(command);
 };
 
+const createOrUpdatePopup = (
+  textBeforeCursor: string,
+  referenceRect: DOMRect,
+  range: Range,
+  editor: Editor,
+  storage: CommandSuggestorStorage
+) => {
+  const props: CommandSuggestionsProps = {
+    textBeforeCursor,
+    commands: storage.commands,
+    onSelectCommand: (command) => command.addToQuery(editor, range),
+  };
+
+  if (!storage.popup) {
+    storage.popup = openPopup({
+      editor: editor,
+      component: CommandSuggestions,
+      props,
+      referenceRect,
+      placement: "bottom-start",
+      offset: { x: -16, y: 18 },
+    });
+    return;
+  }
+
+  storage.popup.update(props);
+  storage.popup.show();
+};
+
+const handleSuggestionChange = (
+  textBeforeCursor: string,
+  referenceRect: DOMRect,
+  range: Range,
+  event: SuggestionEventType,
+  editor: Editor,
+  storage: CommandSuggestorStorage
+) => {
+  switch (event) {
+    case "editor-focussed":
+      createOrUpdatePopup(
+        textBeforeCursor,
+        referenceRect,
+        range,
+        editor,
+        storage
+      );
+      return;
+    case "editor-unfocussed":
+      // setTimeout(() => storage.popup?.hide(), 4);
+      return;
+    case "text-changed":
+      createOrUpdatePopup(
+        textBeforeCursor,
+        referenceRect,
+        range,
+        editor,
+        storage
+      );
+      return;
+    case "selection-changed":
+      return;
+  }
+};
+
 export const CommandSuggestor = Extension.create<
   Record<string, never>,
   CommandSuggestorStorage
@@ -37,31 +101,15 @@ export const CommandSuggestor = Extension.create<
 
   addProseMirrorPlugins() {
     return [
-      SuggestorPlugin(
-        (
-          textBeforeCursor: string,
-          referenceRect: DOMRect,
-          docChanged: boolean
-        ) => {
-          if (!docChanged && this.storage.popup) {
-            this.storage.popup.update({
-              textBeforeCursor,
-              commands: this.storage.commands,
-            });
-            return;
-          }
-
-          this.storage.popup?.close();
-
-          this.storage.popup = openPopup({
-            editor: this.editor,
-            component: CommandSuggestions,
-            props: { textBeforeCursor, commands: this.storage.commands },
-            referenceRect,
-            placement: "bottom-start",
-            offset: { x: -16, y: 18 },
-          });
-        }
+      SuggestorPlugin((textBeforeCursor, referenceRect, range, event) =>
+        handleSuggestionChange(
+          textBeforeCursor,
+          referenceRect,
+          range,
+          event,
+          this.editor,
+          this.storage
+        )
       ),
     ];
   },

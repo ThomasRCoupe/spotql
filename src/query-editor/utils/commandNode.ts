@@ -1,38 +1,46 @@
 import { Node } from "@tiptap/core";
-import { Command } from "../types";
 import { registerCommand } from "../extensions/suggestions/CommandSuggestor";
 
-export const createCommandNode = (command: Command) =>
+export const createCommandNode = (nodeName: string, displayName: string) =>
   Node.create({
-    name: command.nodeName,
+    name: nodeName,
     content: "",
+    group: "inline",
+    inline: true,
 
     renderHTML() {
       return [
         "span",
         { class: "p-2 rounded-full bg-spotify-green text-black" },
-        command.displayName,
+        displayName,
       ];
     },
 
     onCreate() {
       registerCommand(this.editor, {
-        nodeName: this.name,
-        displayName: command.displayName,
+        name: displayName,
+        addToQuery: (editor, range) => {
+          // TODO
+        },
       });
     },
   });
 
-export const createParameterisedCommandNode = (command: Command) =>
+export const createCommandNodeWithArgument = (
+  nodeName: string,
+  displayName: string
+) =>
   Node.create({
-    name: command.nodeName,
+    name: nodeName,
     content: "text*",
+    group: "inline",
+    inline: true,
 
     renderHTML() {
       return [
         "span",
         { class: "p-2 rounded-full bg-spotify-green text-black" },
-        `${command.displayName}`,
+        `${displayName}`,
         0,
         ")",
       ];
@@ -40,8 +48,10 @@ export const createParameterisedCommandNode = (command: Command) =>
 
     onCreate() {
       registerCommand(this.editor, {
-        nodeName: this.name,
-        displayName: command.displayName,
+        name: displayName,
+        addToQuery: (editor, range) => {
+          // TODO
+        },
       });
     },
   });

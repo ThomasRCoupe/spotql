@@ -1,4 +1,6 @@
+import { Editor, Range } from "@tiptap/core";
+
 export interface Command {
-  nodeName: string;
-  displayName: string;
+  name: string;
+  addToQuery: (editor: Editor, range: Range) => void;
 }

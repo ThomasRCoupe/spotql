@@ -4,7 +4,8 @@ import tippy, { Placement } from "tippy.js";
 
 export interface Popup<P> {
   update: (props: P) => void;
-  close: () => void;
+  hide: () => void;
+  show: () => void;
 }
 
 interface OpenPopupParams<P> {
@@ -26,7 +27,7 @@ export const openPopup = <P>({
   referenceRect,
   placement,
   offset = { x: 0, y: 0 },
-}: OpenPopupParams<P>) => {
+}: OpenPopupParams<P>): Popup<P> => {
   const renderer = new ReactRenderer(component, {
     editor,
     props: props as Record<string, unknown>,
@@ -41,19 +42,19 @@ export const openPopup = <P>({
     trigger: "manual",
     placement,
     offset: [offset.x, offset.y],
-  })[0];
-
-  if (!popup) {
-    return;
-  }
+  })[0]!;
 
   const update = (props: P) => {
     renderer.updateProps(props as Record<string, unknown>);
   };
 
-  const close = () => {
-    popup.destroy();
+  const hide = () => {
+    popup.hide();
   };
 
-  return { update, close };
+  const show = () => {
+    popup.show();
+  };
+
+  return { update, hide, show };
 };
