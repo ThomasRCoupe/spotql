@@ -5,7 +5,7 @@ export interface CommandSuggestionsProps {
 }
 
 export const CommandSuggestions = ({ commands }: CommandSuggestionsProps) => (
-  <div className="w-64 rounded-md bg-medium-grey shadow-xl font-mono">
+  <div className="w-64 rounded-md bg-medium-grey shadow-xl">
     {commands.map((command, index) => (
       <button
         className={clsx(

@@ -1,4 +1,4 @@
-import { QueryEditor } from "../query-editor-2/QueryEditor";
+import { QueryBuilder } from "../query-builder/QueryBuilder";
 
 export const SpotifyQuery = () => {
   return (
@@ -9,7 +9,7 @@ export const SpotifyQuery = () => {
       </section>
 
       <section className="">
-        <QueryEditor />
+        <QueryBuilder />
       </section>
     </div>
   );

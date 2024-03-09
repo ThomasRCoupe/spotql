@@ -11,6 +11,7 @@ export default {
       "light-grey": "#A7A7A7",
       white: colors.white,
       "spotify-green": "#1abc54",
+      transparent: colors.transparent,
     },
     extend: {},
   },
