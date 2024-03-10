@@ -40,20 +40,23 @@ const QueryClause = ({
           onClick={handleClick}
         />
       </div>
-      <div
-        className="w-32 p-4 flex flex-col gap-2 rounded-lg bg-medium-grey"
-        ref={refs.setFloating}
-        style={floatingStyles}
-      >
-        {suggestions.map((suggestion) => (
-          <button
-            className="hover:bg-white/10"
-            onClick={() => handleSuggestionClick(suggestion)}
-          >
-            {suggestion.variant}
-          </button>
-        ))}
-      </div>
+      {isOpen && (
+        <div
+          className="w-32 p-4 flex flex-col gap-2 rounded-lg bg-medium-grey"
+          ref={refs.setFloating}
+          style={floatingStyles}
+        >
+          {suggestions.map((suggestion) => (
+            <button
+              className="hover:bg-white/10"
+              key={suggestion.variant}
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
+              {suggestion.variant}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 };
