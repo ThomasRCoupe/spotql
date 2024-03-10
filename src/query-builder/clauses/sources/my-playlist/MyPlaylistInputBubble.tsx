@@ -1,41 +1,46 @@
 import { useState } from "react";
-import { ClauseButton } from "../../../../design-system/ClauseButton";
+import { Bubble } from "../../../../design-system/Bubble";
 import { ClauseInput } from "../../../../design-system/ClauseInput";
+import { PLACEHOLDER } from "./constants";
 
-interface MyPlaylistClauseProps {
+interface MyPlaylistInputBubbleProps {
   playlistName: string | undefined;
   onPlaylistNameChange: (name: string | undefined) => void;
-  onClick: () => void;
 }
 
-const MyPlaylistClause = ({
+const MyPlaylistInputBubble = ({
   playlistName,
   onPlaylistNameChange: handlePlaylistNameChange,
-  onClick: handleClick,
-}: MyPlaylistClauseProps) => {
+}: MyPlaylistInputBubbleProps) => {
   const [editing, setEditing] = useState(true);
 
+  if (!editing) {
+    return (
+      <Bubble
+        variant="primary"
+        onClick={() => {
+          setEditing(true);
+        }}
+      >
+        {playlistName ?? PLACEHOLDER}
+      </Bubble>
+    );
+  }
+
   return (
-    <ClauseButton
-      variant="standard"
-      onClick={() => {
-        handleClick();
-        setEditing(true);
-      }}
-    >
-      My Playlist
+    <Bubble variant="primary">
       <ClauseInput
         editing={editing}
         value={playlistName}
-        placeholder="Playlist Name"
+        placeholder={PLACEHOLDER}
         onChange={(newPlaylistName) =>
           handlePlaylistNameChange(newPlaylistName)
         }
         onConfirm={() => setEditing(false)}
         width="large"
       />
-    </ClauseButton>
+    </Bubble>
   );
 };
 
-export default MyPlaylistClause;
+export default MyPlaylistInputBubble;

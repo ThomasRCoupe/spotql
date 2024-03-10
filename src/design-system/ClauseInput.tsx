@@ -13,7 +13,6 @@ export interface ClauseInputProps {
 }
 
 export const ClauseInput = ({
-  editing,
   value,
   placeholder,
   onChange: handleChange,
@@ -23,10 +22,8 @@ export const ClauseInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (editing) {
-      inputRef.current?.focus();
-    }
-  }, [editing]);
+    inputRef.current?.focus();
+  }, []);
 
   const handeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -34,12 +31,12 @@ export const ClauseInput = ({
     }
   };
 
-  return editing ? (
+  return (
     <input
       ref={inputRef}
       type="text"
       className={clsx(
-        "h-full px-1 outline-none bg-black/10",
+        "h-full outline-none bg-transparent",
         getTailwindWidth(width)
       )}
       value={value ?? ""}
@@ -48,12 +45,6 @@ export const ClauseInput = ({
       onBlur={() => handleConfirm()}
       onKeyDown={handeKeyDown}
     />
-  ) : value ? (
-    <span className="h-full flex items-center text-black">{" " + value}</span>
-  ) : (
-    <span className="h-full flex items-center text-light-grey">
-      {" " + placeholder}
-    </span>
   );
 };
 

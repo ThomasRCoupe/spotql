@@ -1,18 +1,24 @@
 import { useState } from "react";
-import QueryClause from "./QueryClause";
 import { Query, Selector, Source } from "./types";
+import { SelectorClause } from "./clauses/selectors/SelectorClause";
+import VariantBubble from "./VariantBubble";
+import { SourceClause } from "./clauses/sources/SourceClause";
 
 export const QueryBuilder = () => {
   const [query, setQuery] = useState<Query>({
     sources: [],
   });
 
-  const handleSourceChange = (newSource: Source, index: number) => {
+  const handleSelectorChange = (changedSelector: Selector) => {
+    setQuery({ ...query, ...{ selector: changedSelector as Selector } });
+  };
+
+  const handleSourceChange = (changedSource: Source, index: number) => {
     setQuery({
       ...query,
       sources: [
         ...query.sources.slice(0, index),
-        newSource,
+        changedSource,
         ...query.sources.slice(index + 1),
       ],
     });
@@ -27,29 +33,37 @@ export const QueryBuilder = () => {
 
   return (
     <div className="flex gap-2">
-      <QueryClause
-        type="selector"
-        clause={query.selector}
-        onChange={(selector) =>
-          setQuery({ ...query, ...{ selector: selector as Selector } })
-        }
-      />
+      {query.selector ? (
+        <SelectorClause
+          selector={query.selector}
+          onChange={handleSelectorChange}
+        />
+      ) : (
+        <VariantBubble
+          type="selector"
+          variant="inverted"
+          onChange={(clause) => handleSelectorChange(clause as Selector)}
+        >
+          Selector
+        </VariantBubble>
+      )}
       {query.sources.length ? (
         query.sources.map((source, index) => (
-          <QueryClause
-            key={index}
-            type="source"
-            clause={source}
-            onChange={(newSource) =>
-              handleSourceChange(newSource as Source, index)
+          <SourceClause
+            source={source}
+            onChange={(changedSource) =>
+              handleSourceChange(changedSource, index)
             }
           />
         ))
       ) : (
-        <QueryClause
+        <VariantBubble
           type="source"
-          onChange={(newSource) => handleAddSource(newSource as Source)}
-        />
+          variant="inverted"
+          onChange={(clause) => handleAddSource(clause as Source)}
+        >
+          Source
+        </VariantBubble>
       )}
     </div>
   );
