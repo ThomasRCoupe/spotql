@@ -1,5 +1,4 @@
 import { Bubble } from "../../../../design-system/Bubble";
-import { PLACEHOLDER } from "./constants";
 
 interface GetTopClauseBubbleProps {
   selected: boolean;

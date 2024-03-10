@@ -26,6 +26,8 @@ export const MyPlaylist = ({
     );
   }
 
+  console.log(inputSelected);
+
   return (
     <div className="flex gap-2">
       <GetTopVariantBubble

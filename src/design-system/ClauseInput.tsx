@@ -45,7 +45,6 @@ export const ClauseInput = ({
       value={value ?? ""}
       placeholder={placeholder}
       onChange={(e) => handleChange(e.target.value)}
-      onBlur={() => handleConfirm()}
       onKeyDown={handeKeyDown}
     />
   );
