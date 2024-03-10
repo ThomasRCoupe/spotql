@@ -14,3 +14,9 @@ export interface SpotifyAccessToken {
   access_token: string;
   expires_in: number;
 }
+
+export interface SimplifiedPlaylist {
+  id: string;
+  name: string;
+  href: string;
+}

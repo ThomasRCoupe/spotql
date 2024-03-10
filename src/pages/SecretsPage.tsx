@@ -1,6 +1,6 @@
 import { useSpotifyAccessToken } from "../spotify/useSpotifyAccessToken";
 
-export const SpotifyAppSecrets = () => {
+export const SecretPage = () => {
   const { token, status } = useSpotifyAccessToken();
 
   return (

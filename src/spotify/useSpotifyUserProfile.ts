@@ -1,17 +1,15 @@
 import { SpotifyUserProfile } from "./types";
-import { useSpotifyUserAccessTokenV2 } from "./useSpotifyUserAccessToken";
+import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSpotifyUserProfile = () => {
-  const { token, refetch: refetchToken } = useSpotifyUserAccessTokenV2();
+  const { token, refetch: refetchToken } = useSpotifyUserAccessToken();
 
   const { data, status } = useQuery({
     queryKey: ["spotifyUserProfile"],
     queryFn: () => (token ? fetchSpotifyUserProfile(token) : undefined),
     enabled: !!token,
   });
-
-  console.log("profile", data);
 
   return {
     profile: data,

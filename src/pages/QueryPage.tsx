@@ -1,6 +1,6 @@
 import { QueryBuilder } from "../query-builder/QueryBuilder";
 
-export const SpotifyQuery = () => {
+export const QueryPage = () => {
   return (
     <div className="w-full h-full">
       <section className="mb-2 flex flex-col gap-2">

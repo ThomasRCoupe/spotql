@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpotifyAccessToken } from "./types";
 
-export const useSpotifyUserAccessTokenV2 = () => {
+export const useSpotifyUserAccessToken = () => {
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
