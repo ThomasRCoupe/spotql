@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-export type WidthVariant = "small" | "medium";
+
+export type WidthVariant = "small" | "medium" | "large";
 
 export interface ClauseInputProps {
   editing: boolean;
@@ -62,5 +63,7 @@ const getTailwindWidth = (width: WidthVariant) => {
       return "w-16";
     case "medium":
       return "w-32";
+    case "large":
+      return "w-48";
   }
 };

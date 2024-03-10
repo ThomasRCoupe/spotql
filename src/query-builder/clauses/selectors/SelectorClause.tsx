@@ -1,10 +1,9 @@
-import { ClauseButton } from "../../design-system/ClauseButton";
 import { GetAllClause } from "./get-all/GetAllClause";
 import { GetTopClause } from "./get-top/GetTopClause";
-import { Selector } from "../types";
+import { Selector } from "../../types";
 
 interface SelectorClauseProps {
-  selector?: Selector;
+  selector: Selector;
   onChange: (selector: Selector) => void;
   onClick: () => void;
 }
@@ -14,14 +13,6 @@ export const SelectorClause = ({
   onChange: handleChange,
   onClick: handleClick,
 }: SelectorClauseProps) => {
-  if (!selector) {
-    return (
-      <ClauseButton variant="placeholder" onClick={handleClick}>
-        Selector
-      </ClauseButton>
-    );
-  }
-
   switch (selector.variant) {
     case "get-all":
       return <GetAllClause onClick={handleClick} />;

@@ -4,6 +4,8 @@ import { useFloating, offset } from "@floating-ui/react";
 import ClauseSwitch from "./ClauseSwitch";
 import { getVariants } from "./variants";
 import clsx from "clsx";
+import { ClauseButton } from "../design-system/ClauseButton";
+import { firstLetterToUpperCase } from "../utils/capitalisation";
 
 export interface ClauseSuggestionProps {
   type: ClauseType;
@@ -36,12 +38,17 @@ const QueryClause = ({
   return (
     <>
       <div ref={refs.setReference}>
-        <ClauseSwitch
-          type={type}
-          clause={clause}
-          onChange={handleChange}
-          onClick={handleClick}
-        />
+        {clause ? (
+          <ClauseSwitch
+            clause={clause}
+            onChange={handleChange}
+            onClick={handleClick}
+          />
+        ) : (
+          <ClauseButton variant="placeholder" onClick={handleClick}>
+            {firstLetterToUpperCase(type)}
+          </ClauseButton>
+        )}
       </div>
       {isOpen && (
         <div

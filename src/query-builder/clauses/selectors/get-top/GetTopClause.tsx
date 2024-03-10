@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ClauseButton } from "../../../design-system/ClauseButton";
-import { ClauseNumberInput } from "../../../design-system/ClauseNumberInput";
+import { ClauseButton } from "../../../../design-system/ClauseButton";
+import { ClauseNumberInput } from "../../../../design-system/ClauseNumberInput";
 
 interface GetTopClauseProps {
   amount: number | undefined;

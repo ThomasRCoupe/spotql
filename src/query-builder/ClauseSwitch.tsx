@@ -1,24 +1,31 @@
-import { SelectorClause } from "./clauses/SelectorClause";
-import { Clause, ClauseType } from "./types";
+import { SelectorClause } from "./clauses/selectors/SelectorClause";
+import { SourceClause } from "./clauses/sources/SourceClause";
+import { Clause } from "./types";
 
 interface ClauseSwitchProps {
-  type: ClauseType;
-  clause?: Clause;
+  clause: Clause;
   onChange: (clause: Clause) => void;
   onClick: () => void;
 }
 
 const ClauseSwitch = ({
-  type,
   clause,
   onChange: handleChange,
   onClick: handleClick,
 }: ClauseSwitchProps) => {
-  switch (type) {
+  switch (clause.type) {
     case "selector":
       return (
         <SelectorClause
           selector={clause}
+          onChange={handleChange}
+          onClick={handleClick}
+        />
+      );
+    case "source":
+      return (
+        <SourceClause
+          source={clause}
           onChange={handleChange}
           onClick={handleClick}
         />

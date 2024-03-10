@@ -1,4 +1,4 @@
-import { ClauseButton } from "../../../design-system/ClauseButton";
+import { ClauseButton } from "../../../../design-system/ClauseButton";
 
 export interface GetAllClauseProps {
   onClick: () => void;
