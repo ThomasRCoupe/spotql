@@ -1,25 +1,28 @@
-import { useState } from "react";
 import { Bubble } from "../../../../design-system/Bubble";
 import { ClauseNumberInput } from "../../../../design-system/ClauseNumberInput";
 import { PLACEHOLDER } from "./constants";
 
 interface GetTopInputBubble {
+  selected: boolean;
+  onSelectedChange: (selected: boolean) => void;
   amount: number | undefined;
   onAmountChange: (amount: number | undefined) => void;
+  onConfrm: () => void;
 }
 
 const GetTopInputBubble = ({
+  selected,
+  onSelectedChange: handleSelectedChange,
   amount,
   onAmountChange: handleAmountChange,
+  onConfrm: handleConfirm,
 }: GetTopInputBubble) => {
-  const [editing, setEditing] = useState(true);
-
-  if (!editing) {
+  if (!selected) {
     return (
       <Bubble
         variant="primary"
         onClick={() => {
-          setEditing(true);
+          handleSelectedChange(true);
         }}
       >
         {amount ?? PLACEHOLDER}
@@ -30,11 +33,11 @@ const GetTopInputBubble = ({
   return (
     <Bubble variant="primary">
       <ClauseNumberInput
-        editing={editing}
+        selected={selected}
         value={amount}
         placeholder={PLACEHOLDER}
         onChange={(newAmount) => handleAmountChange(newAmount)}
-        onConfirm={() => setEditing(false)}
+        onConfirm={handleConfirm}
       />
     </Bubble>
   );

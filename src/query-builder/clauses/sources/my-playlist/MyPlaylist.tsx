@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { MyPlaylistSource } from "./types";
 import MyPlaylistClauseBubble from "./MyPlaylistClauseBubble";
 import MyPlaylistVariantBubble from "./MyPlaylistVariantBubble";
 import MyPlaylistInputBubble from "./MyPlaylistInputBubble";
 import { Source } from "../../../types";
+import { useState } from "react";
 
 interface MyPlaylistProps {
   source: MyPlaylistSource;
@@ -14,13 +14,13 @@ export const MyPlaylist = ({
   source,
   onChange: handleChange,
 }: MyPlaylistProps) => {
-  const [editing, setEditing] = useState(false);
+  const [inputSelected, setInputSelected] = useState(true);
 
-  if (!editing) {
+  if (!source.selected) {
     return (
       <MyPlaylistClauseBubble
         playlistName={source.playlistName}
-        onClick={() => setEditing(true)}
+        onClick={() => handleChange({ ...source, selected: true })}
       />
     );
   }
@@ -28,12 +28,13 @@ export const MyPlaylist = ({
   return (
     <div className="flex gap-2">
       <MyPlaylistVariantBubble
-        onChange={(newSource) => {
-          handleChange(newSource);
-          setEditing(false);
-        }}
+        selected={!inputSelected}
+        onSelectedChange={(selected) => setInputSelected(!selected)}
+        onChange={handleChange}
       />
       <MyPlaylistInputBubble
+        selected={inputSelected}
+        onSelectedChange={(selected) => setInputSelected(selected)}
         playlistName={source.playlistName}
         onPlaylistNameChange={(name) =>
           handleChange({
@@ -41,6 +42,7 @@ export const MyPlaylist = ({
             playlistName: name,
           })
         }
+        onConfrm={() => handleChange({ ...source, selected: true })}
       />
     </div>
   );

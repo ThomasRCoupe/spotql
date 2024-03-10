@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { GetTopSelector } from "./types";
 import GetTopClauseBubble from "./GetTopClauseBubble";
 import GetTopVariantBubble from "./GetTopVariantBubble";
 import GetTopInputBubble from "./GetTopInputBubble";
 import { Selector } from "../../../types";
+import { useState } from "react";
 
 interface GetTopProps {
   selector: GetTopSelector;
@@ -14,13 +14,13 @@ export const MyPlaylist = ({
   selector,
   onChange: handleChange,
 }: GetTopProps) => {
-  const [editing, setEditing] = useState(false);
+  const [inputSelected, setInputSelected] = useState(true);
 
-  if (!editing) {
+  if (!selector.selected) {
     return (
       <GetTopClauseBubble
         amount={selector.amount}
-        onClick={() => setEditing(true)}
+        onClick={() => handleChange({ ...selector, selected: true })}
       />
     );
   }
@@ -28,12 +28,13 @@ export const MyPlaylist = ({
   return (
     <div className="flex gap-2">
       <GetTopVariantBubble
-        onChange={(newSelector) => {
-          handleChange(newSelector);
-          setEditing(false);
-        }}
+        selected={!inputSelected}
+        onSelectedChange={(selected) => setInputSelected(!selected)}
+        onChange={handleChange}
       />
       <GetTopInputBubble
+        selected={inputSelected}
+        onSelectedChange={(selected) => setInputSelected(selected)}
         amount={selector.amount}
         onAmountChange={(amount) =>
           handleChange({
@@ -41,6 +42,7 @@ export const MyPlaylist = ({
             amount,
           })
         }
+        onConfrm={() => handleChange({ ...selector, selected: true })}
       />
     </div>
   );

@@ -13,7 +13,7 @@ export const SelectorClause = ({
 }: SelectorClauseProps) => {
   switch (selector.variant) {
     case "get-all":
-      return <GetAll onChange={handleChange} />;
+      return <GetAll selector={selector} onChange={handleChange} />;
     case "get-top":
       return <GetTop selector={selector} onChange={handleChange} />;
   }

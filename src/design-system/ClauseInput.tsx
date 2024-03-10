@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 export type WidthVariant = "small" | "medium" | "large";
 
 export interface ClauseInputProps {
-  editing: boolean;
+  selected: boolean;
   value: string | undefined;
   placeholder: string;
   onChange: (value: string) => void;
@@ -13,6 +13,7 @@ export interface ClauseInputProps {
 }
 
 export const ClauseInput = ({
+  selected,
   value,
   placeholder,
   onChange: handleChange,
@@ -22,8 +23,10 @@ export const ClauseInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (selected) {
+      inputRef.current?.focus();
+    }
+  }, [selected]);
 
   const handeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

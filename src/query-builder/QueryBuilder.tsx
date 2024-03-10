@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Query, Selector, Source } from "./types";
+import { Clause, Query, Selector, Source } from "./types";
 import { SelectorClause } from "./clauses/selectors/SelectorClause";
-import VariantBubble from "./VariantBubble";
 import { SourceClause } from "./clauses/sources/SourceClause";
+import PlaceholderBubble from "./PlaceholderBubble";
 
 export const QueryBuilder = () => {
   const [query, setQuery] = useState<Query>({
@@ -10,12 +10,15 @@ export const QueryBuilder = () => {
   });
 
   const handleSelectorChange = (changedSelector: Selector) => {
-    setQuery({ ...query, ...{ selector: changedSelector as Selector } });
+    setQuery({
+      ...(changedSelector.selected ? deselectQuery(query) : query),
+      ...{ selector: changedSelector as Selector },
+    });
   };
 
   const handleSourceChange = (changedSource: Source, index: number) => {
     setQuery({
-      ...query,
+      ...(changedSource.selected ? deselectQuery(query) : query),
       sources: [
         ...query.sources.slice(0, index),
         changedSource,
@@ -26,7 +29,7 @@ export const QueryBuilder = () => {
 
   const handleAddSource = (newSource: Source) => {
     setQuery({
-      ...query,
+      ...(newSource.selected ? deselectQuery(query) : query),
       sources: [...query.sources, newSource as Source],
     });
   };
@@ -39,17 +42,15 @@ export const QueryBuilder = () => {
           onChange={handleSelectorChange}
         />
       ) : (
-        <VariantBubble
+        <PlaceholderBubble
           type="selector"
-          variant="inverted"
           onChange={(clause) => handleSelectorChange(clause as Selector)}
-        >
-          Selector
-        </VariantBubble>
+        />
       )}
       {query.sources.length ? (
         query.sources.map((source, index) => (
           <SourceClause
+            key={index}
             source={source}
             onChange={(changedSource) =>
               handleSourceChange(changedSource, index)
@@ -57,14 +58,21 @@ export const QueryBuilder = () => {
           />
         ))
       ) : (
-        <VariantBubble
+        <PlaceholderBubble
           type="source"
-          variant="inverted"
           onChange={(clause) => handleAddSource(clause as Source)}
-        >
-          Source
-        </VariantBubble>
+        />
       )}
     </div>
   );
 };
+
+const deselectClause = (clause: Clause): Clause => ({
+  ...clause,
+  selected: false,
+});
+
+const deselectQuery = (query: Query): Query => ({
+  selector: query.selector && (deselectClause(query.selector) as Selector),
+  sources: [...query.sources.map((source) => deselectClause(source) as Source)],
+});

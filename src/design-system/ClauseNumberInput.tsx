@@ -1,7 +1,7 @@
 import { ClauseInput } from "./ClauseInput";
 
 export interface ClauseNumberInputProps {
-  editing: boolean;
+  selected: boolean;
   value: number | undefined;
   placeholder: string;
   onChange: (value: number | undefined) => void;
@@ -9,7 +9,7 @@ export interface ClauseNumberInputProps {
 }
 
 export const ClauseNumberInput = ({
-  editing,
+  selected,
   value,
   placeholder,
   onChange: handleChange,
@@ -22,7 +22,7 @@ export const ClauseNumberInput = ({
 
   return (
     <ClauseInput
-      editing={editing}
+      selected={selected}
       value={value?.toString()}
       placeholder={placeholder}
       onChange={handleInputChange}
