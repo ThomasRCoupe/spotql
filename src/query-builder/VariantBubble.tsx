@@ -1,6 +1,11 @@
 import { Bubble, BubbleVariant } from "../design-system/Bubble";
 import { Clause, ClauseType } from "./types";
-import { useFloating, offset } from "@floating-ui/react";
+import {
+  useFloating,
+  useDismiss,
+  useInteractions,
+  offset,
+} from "@floating-ui/react";
 import VariantSuggestions from "./VariantSuggestions";
 
 interface VariantBubbleProps {
@@ -20,12 +25,16 @@ const VariantBubble = ({
   onChange: handleChange,
   children,
 }: VariantBubbleProps) => {
-  const { refs, floatingStyles } = useFloating({
+  const { refs, floatingStyles, context } = useFloating({
     open: selected,
     onOpenChange: handleSelectedChange,
     placement: "bottom-start",
     middleware: [offset(8)],
   });
+
+  const dismiss = useDismiss(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
 
   const handleSelectSuggestion = (newClause: Clause) => {
     handleChange({ ...newClause, selected: true });
@@ -33,7 +42,7 @@ const VariantBubble = ({
 
   return (
     <>
-      <div ref={refs.setReference}>
+      <div ref={refs.setReference} {...getReferenceProps}>
         <Bubble variant={variant} onClick={() => handleSelectedChange(true)}>
           {children}
         </Bubble>
@@ -43,6 +52,7 @@ const VariantBubble = ({
           className="w-32 rounded-2xl bg-medium-grey"
           ref={refs.setFloating}
           style={floatingStyles}
+          {...getFloatingProps}
         >
           <VariantSuggestions
             type={type}

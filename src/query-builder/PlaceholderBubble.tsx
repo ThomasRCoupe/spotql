@@ -1,26 +1,25 @@
 import VariantBubble from "./VariantBubble";
 import { Clause, ClauseType } from "./types";
 import { firstLetterToUpperCase } from "../utils/capitalisation";
+import { useState } from "react";
 
 interface PlaceholderBubbleProps {
   type: ClauseType;
   onChange: (clause: Clause) => void;
-  selected: boolean;
-  onSelectedChange: (selected: boolean) => void;
 }
 
 const PlaceholderBubble = ({
   type,
   onChange: handleChange,
-  selected,
-  onSelectedChange: handleSelectedChange,
 }: PlaceholderBubbleProps) => {
+  const [selected, setSelected] = useState(false);
+
   return (
     <VariantBubble
       type={type}
       variant="inverted"
       selected={selected}
-      onSelectedChange={(newSelected) => handleSelectedChange(newSelected)}
+      onSelectedChange={(newSelected) => setSelected(newSelected)}
       onChange={handleChange}
     >
       {firstLetterToUpperCase(type)}
