@@ -1,18 +1,22 @@
-import { useState } from "react";
 import { Clause } from "../../../design-system/Clause";
-import { ClauseInput } from "../../../design-system/ClauseInput";
+import { ClauseNumberInput } from "../../../design-system/ClauseNumberInput";
 
-export const GetTopClause = () => {
-  const [amount, setAmount] = useState("");
+interface GetTopClauseProps {
+  amount: number | undefined;
+  onAmountChange: (amount: number | undefined) => void;
+}
 
-  const handleChange = (newAmount: string) => {
-    const newAmountInt = newAmount.replace(/[^0-9]/g, "");
-    setAmount(newAmountInt);
-  };
-
+export const GetTopClause = ({
+  amount,
+  onAmountChange: handleAmountChange,
+}: GetTopClauseProps) => {
   return (
-    <Clause type="standard">
-      Get Top <ClauseInput value={amount} onChange={handleChange} />
+    <Clause variant="standard">
+      Get Top{" "}
+      <ClauseNumberInput
+        value={amount}
+        onChange={(newAmout) => handleAmountChange(newAmout)}
+      />
     </Clause>
   );
 };

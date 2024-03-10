@@ -1,13 +1,13 @@
 import clsx from "clsx";
 
-export type ClauseType = "standard" | "placeholder";
+export type ClauseVariant = "standard" | "placeholder";
 
 export interface ClauseProps {
-  type: ClauseType;
+  variant: ClauseVariant;
   children: React.ReactNode;
 }
 
-export const Clause = ({ type, children }: ClauseProps) => (
+export const Clause = ({ variant: type, children }: ClauseProps) => (
   <button
     className={clsx(
       "h-8 px-4 rounded-full",

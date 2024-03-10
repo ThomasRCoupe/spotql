@@ -1,4 +1,4 @@
 export interface GetTopSelector {
   type: "getTop";
-  amount: number;
+  amount?: number;
 }
