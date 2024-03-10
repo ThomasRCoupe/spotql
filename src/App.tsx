@@ -3,6 +3,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { SecretPage } from "./pages/SecretsPage";
 import "./App.css";
 import { QueryPage } from "./pages/QueryPage";
+import { PlaylistsPage } from "./pages/PlaylistsPage";
 
 export const App = () => (
   <div className="w-screen h-screen flex items-center justify-center bg-black">
@@ -10,6 +11,7 @@ export const App = () => (
       <Routes>
         <Route path="/" element={<Navigate to="/query" />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/playlists" element={<PlaylistsPage />} />
         <Route path="/query" element={<QueryPage />} />
         <Route path="/secrets" element={<SecretPage />} />
       </Routes>

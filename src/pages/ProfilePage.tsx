@@ -1,13 +1,8 @@
 import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
 import { Avatar } from "../design-system/Avatar";
-import { useMyPlaylists } from "../spotify/useMyPlaylists";
-import { Button } from "../design-system/Button";
 
 export const ProfilePage = () => {
   const { profile, status } = useSpotifyUserProfile();
-  const { playlists, fetchNextPage } = useMyPlaylists();
-
-  console.log("playlists", playlists);
 
   if (status === "pending") {
     return <h1>Loading...</h1>;
@@ -36,17 +31,6 @@ export const ProfilePage = () => {
           </h2>
         </div>
       </section>
-
-      <section className="flex flex-col gap-2">
-        <ul>
-          {playlists?.map((playlist) => (
-            <li key={playlist.id}>{playlist.name}</li>
-          ))}
-        </ul>
-      </section>
-      <Button variant="primary" onClick={() => fetchNextPage()}>
-        Fetch playlists
-      </Button>
     </div>
   );
 };

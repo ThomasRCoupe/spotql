@@ -5,20 +5,22 @@ import { SimplifiedPlaylist } from "./types";
 export const useMyPlaylists = () => {
   const { token } = useSpotifyUserAccessToken();
 
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
-    queryKey: ["myPlaylists"],
-    queryFn: token
-      ? ({ pageParam }) => fetchMyPlaylistsPage(token, pageParam)
-      : undefined,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) =>
-      lastPage.length === 50 ? pages.length + 1 : undefined,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetching, status } =
+    useInfiniteQuery({
+      queryKey: ["myPlaylists"],
+      queryFn: token
+        ? ({ pageParam }) => fetchMyPlaylistsPage(token, pageParam)
+        : undefined,
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, pages) =>
+        lastPage.length === 50 ? pages.length + 1 : undefined,
+    });
 
   return {
     playlists: data?.pages?.flatMap((page) => page),
     fetchNextPage,
     hasNextPage,
+    status,
     isFetching,
   };
 };
