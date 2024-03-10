@@ -27,10 +27,6 @@ const VariantBubble = ({
     middleware: [offset(8)],
   });
 
-  const handleClick = () => {
-    handleSelectedChange(true);
-  };
-
   const handleSelectSuggestion = (newClause: Clause) => {
     handleChange({ ...newClause, selected: true });
   };
@@ -38,7 +34,7 @@ const VariantBubble = ({
   return (
     <>
       <div ref={refs.setReference}>
-        <Bubble variant={variant} onClick={handleClick}>
+        <Bubble variant={variant} onClick={() => handleSelectedChange(true)}>
           {children}
         </Bubble>
       </div>
