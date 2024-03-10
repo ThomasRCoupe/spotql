@@ -9,3 +9,8 @@ export interface SpotifyUserProfile {
   href: string;
   images: { url: string }[];
 }
+
+export interface SpotifyAccessToken {
+  access_token: string;
+  expires_in: number;
+}

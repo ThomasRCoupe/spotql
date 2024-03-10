@@ -1,61 +1,33 @@
-import { useEffect, useState } from "react";
-import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
-import { FetchState as FetchStatus } from "../types";
 import { SpotifyUserProfile } from "./types";
+import { useSpotifyUserAccessTokenV2 } from "./useSpotifyUserAccessToken";
+import { useQuery } from "@tanstack/react-query";
 
 export const useSpotifyUserProfile = () => {
-  const {
-    token,
-    status: tokenStatus,
-    clearToken,
-  } = useSpotifyUserAccessToken();
-  const [status, setStatus] = useState<FetchStatus>("fetching");
-  const [profile, setProfile] = useState<SpotifyUserProfile>();
+  const { token, refetch: refetchToken } = useSpotifyUserAccessTokenV2();
 
-  useEffect(() => {
-    if (tokenStatus !== "success" && tokenStatus !== status) {
-      setStatus(tokenStatus);
-      return;
-    }
+  const { data, status } = useQuery({
+    queryKey: ["spotifyUserProfile"],
+    queryFn: () => (token ? fetchSpotifyUserProfile(token) : undefined),
+    enabled: !!token,
+  });
 
-    if (tokenStatus !== "success") {
-      return;
-    }
+  console.log("profile", data);
 
-    if (!token) {
-      setStatus("failed");
-      return;
-    }
-
-    const getAndSetSpotifyUserProfile = async () => {
-      try {
-        const response = await fetchSpotifyUserProfile(token);
-        if (!response.ok && response.status === 401) {
-          clearToken();
-        }
-        if (!response.ok) {
-          setStatus("failed");
-          return;
-        }
-
-        const profile = await response.json();
-
-        setProfile(profile as SpotifyUserProfile);
-        setStatus("success");
-      } catch {
-        setStatus("failed");
-      }
-    };
-
-    void getAndSetSpotifyUserProfile();
-  }, [tokenStatus]);
-
-  return { profile, status, clearToken };
+  return {
+    profile: data,
+    status,
+    refetchToken,
+  };
 };
 
 const fetchSpotifyUserProfile = async (token: string) => {
-  return await fetch("https://api.spotify.com/v1/me", {
+  const response = await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   });
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return (await response.json()) as SpotifyUserProfile;
 };

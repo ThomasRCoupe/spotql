@@ -4,19 +4,18 @@ import { Button } from "../design-system/Button";
 import { Avatar } from "../design-system/Avatar";
 
 export const SpotifyProfile = () => {
-  const { profile, status, clearToken } = useSpotifyUserProfile();
+  const { profile, status } = useSpotifyUserProfile();
   const navigate = useNavigate();
 
-  if (status === "fetching") {
+  if (status === "pending") {
     return <h1>Loading...</h1>;
   }
 
-  if (status === "failed" || !profile) {
+  if (status === "error" || !profile) {
     return <h1>Fetching Profile Failed!</h1>;
   }
 
   const handleSignOut = () => {
-    clearToken();
     navigate("/");
   };
 

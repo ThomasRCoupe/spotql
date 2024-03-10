@@ -1,55 +1,25 @@
-import { useEffect, useState } from "react";
-import { FetchState } from "../types";
-import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
+import { SpotifyAccessToken } from "./types";
 
-export const useSpotifyUserAccessToken = () => {
-  const [status, setStatus] = useState<FetchState>("fetching");
-  const [token, setToken] = useState<string>();
+export const useSpotifyUserAccessTokenV2 = () => {
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
 
-  useEffect(() => {
-    const storedToken = Cookies.get("spotifyUserAccessToken");
-    if (storedToken) {
-      setStatus("success");
-      setToken(storedToken);
-      return;
-    }
+  if (!code) {
+    redirectToSpotifyUserAuth(clientId);
+  }
 
-    const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if (!code) {
-      void redirectToSpotifyUserAuth(clientId);
-    } else {
-      const getAndSetAccessToken = async () => {
-        const response = await fetchUserAccessToken(clientId, code);
-        if (!response.ok) {
-          setStatus("failed");
-          return;
-        }
-
-        const token = await response.json();
-
-        Cookies.set("spotifyUserAccessToken", token.access_token, {
-          expires: token.expires_in,
-        });
-
-        setStatus("success");
-        setToken(token.access_token);
-      };
-
-      void getAndSetAccessToken();
-    }
-  }, []);
-
-  const clearToken = () => {
-    Cookies.remove("spotifyUserAccessToken");
-  };
+  const { data, status, refetch } = useQuery({
+    queryKey: ["spotifyUserAccessToken"],
+    queryFn: () => (code ? fetchUserAccessToken(clientId, code) : undefined),
+    enabled: !!code,
+  });
 
   return {
-    token,
+    token: data?.access_token,
     status,
-    clearToken,
+    refetch,
   };
 };
 
@@ -71,7 +41,15 @@ const fetchUserAccessToken = async (clientId: string, code: string) => {
     },
   };
 
-  return await fetch("https://accounts.spotify.com/api/token", options);
+  const response = await fetch(
+    "https://accounts.spotify.com/api/token",
+    options
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return (await response.json()) as SpotifyAccessToken;
 };
 
 const redirectToSpotifyUserAuth = async (clientId: string) => {
