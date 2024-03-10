@@ -1,15 +1,8 @@
-export interface QueryBuilders {
-  selectorBuilder?: SelectorBuilder & { select?: SelectFunction };
+import { GetAllSelector } from "./clauses/get-all/types";
+import { GetTopSelector } from "./clauses/get-top/types";
+
+export interface Query {
+  selector?: Selector;
 }
 
-export type SelectFunction = (songs: Song[]) => Promise<Song[]>;
-
-export interface SelectorBuilder {
-  name: string;
-  render: (onSelectChange: (select: SelectFunction) => void) => JSX.Element;
-}
-
-export interface Song {
-  id: string;
-  name: string;
-}
+export type Selector = GetAllSelector | GetTopSelector;

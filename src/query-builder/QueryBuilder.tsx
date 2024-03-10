@@ -1,43 +1,16 @@
 import { useState } from "react";
-import { CommandPlaceholder } from "./components/CommandPlaceholder";
-import { QueryBuilders, SelectFunction, SelectorBuilder } from "./types";
-import { getSelectorBuilders } from "./commands";
-import { CommandSuggestions } from "./CommandSuggestions";
+import { Query } from "./types";
+import { SelectorClause } from "./SelectorClause";
 
 export const QueryBuilder = () => {
-  const [queryBuilders, setQueryBuilders] = useState<QueryBuilders>({});
-
-  const handleSelectChange = (select: SelectFunction) => {
-    setQueryBuilders({
-      ...queryBuilders,
-      ...(queryBuilders.selectorBuilder && {
-        selectorBuilder: {
-          ...queryBuilders.selectorBuilder,
-          select,
-        },
-      }),
-    });
-  };
-
-  const handleChangeSelectorBuilder = (builder: SelectorBuilder) => {
-    setQueryBuilders({ ...queryBuilders, selectorBuilder: builder });
-  };
-
-  const selectorBuilderOptions = getSelectorBuilders();
+  const [query, setQuery] = useState<Query>({});
 
   return (
-    <>
-      <div className="flex gap-2">
-        {queryBuilders.selectorBuilder ? (
-          queryBuilders.selectorBuilder.render(handleSelectChange)
-        ) : (
-          <CommandPlaceholder command="Selector" />
-        )}
-      </div>
-      <CommandSuggestions
-        builders={selectorBuilderOptions}
-        onSelectBuilder={handleChangeSelectorBuilder}
+    <div className="flex gap-2">
+      <SelectorClause
+        selector={query.selector}
+        onChange={(selector) => setQuery({ ...query, selector })}
       />
-    </>
+    </div>
   );
 };
