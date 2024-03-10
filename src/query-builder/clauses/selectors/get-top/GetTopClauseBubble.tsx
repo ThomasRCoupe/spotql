@@ -14,7 +14,7 @@ const GetTopClauseBubble = ({
 }: GetTopClauseBubbleProps) => {
   return (
     <Bubble variant={selected ? "primary" : "inverted"} onClick={handleClick}>
-      Get Top {amount ?? <span className="text-light-grey">{PLACEHOLDER}</span>}
+      Get Top{amount ? ` ${amount}` : "..."}
     </Bubble>
   );
 };

@@ -39,7 +39,7 @@ const MyPlaylistInputBubble = ({
         onChange={(newPlaylistName) =>
           handlePlaylistNameChange(newPlaylistName)
         }
-        onConfirm={() => handleConfirm}
+        onConfirm={handleConfirm}
         width="large"
       />
     </Bubble>

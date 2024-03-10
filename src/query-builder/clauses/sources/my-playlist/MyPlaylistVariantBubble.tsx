@@ -19,7 +19,7 @@ const MyPlaylistVariantBubble = ({
     onSelectedChange={handleSelectedChange}
     onChange={(newSource) => handleChange(newSource as Source)}
   >
-    My Playlist
+    From My Playlist
   </VariantBubble>
 );
 

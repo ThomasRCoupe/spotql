@@ -43,7 +43,7 @@ export const MyPlaylist = ({
             amount,
           })
         }
-        onConfrm={() => handleChange({ ...selector, selected: true })}
+        onConfrm={() => handleChange({ ...selector, selected: false })}
       />
     </div>
   );

@@ -1,5 +1,4 @@
 import { Bubble } from "../../../../design-system/Bubble";
-import { PLACEHOLDER } from "./constants";
 
 interface MyPlaylistClauseProps {
   selected: boolean;
@@ -14,8 +13,7 @@ const MyPlaylistClauseBubble = ({
 }: MyPlaylistClauseProps) => {
   return (
     <Bubble variant={selected ? "primary" : "inverted"} onClick={handleClick}>
-      My Playlist "
-      {playlistName ?? <span className="text-light-grey">{PLACEHOLDER}</span>}"
+      From My Playlist{playlistName ? ` "${playlistName}"` : "..."}
     </Bubble>
   );
 };

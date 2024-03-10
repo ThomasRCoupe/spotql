@@ -19,6 +19,7 @@ export const MyPlaylist = ({
   if (!source.selected) {
     return (
       <MyPlaylistClauseBubble
+        selected={source.selected}
         playlistName={source.playlistName}
         onClick={() => handleChange({ ...source, selected: true })}
       />
@@ -42,7 +43,7 @@ export const MyPlaylist = ({
             playlistName: name,
           })
         }
-        onConfrm={() => handleChange({ ...source, selected: true })}
+        onConfrm={() => handleChange({ ...source, selected: false })}
       />
     </div>
   );

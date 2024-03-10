@@ -22,7 +22,7 @@ const PlaceholderBubble = ({
       onSelectedChange={(newSelected) => setSelected(newSelected)}
       onChange={handleChange}
     >
-      {firstLetterToUpperCase(type)}
+      {`${firstLetterToUpperCase(type)}...`}
     </VariantBubble>
   );
 };
