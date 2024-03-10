@@ -14,11 +14,11 @@ const VariantSuggestions = ({
   const suggestions = getVariants(type);
 
   return (
-    <div className="w-32 rounded-2xl bg-medium-grey">
+    <div className="flex flex-col rounded-2xl bg-medium-grey">
       {suggestions.map((suggestion, index) => (
         <button
           className={clsx(
-            "w-full px-4 hover:bg-white/10 text-left",
+            "px-4 py-2 hover:bg-white/10 text-left",
             index === 0 ? "pt-2 rounded-t-2xl" : "pt-1",
             index === suggestions.length - 1 ? "pb-2 rounded-b-2xl" : "pb-1"
           )}

@@ -19,6 +19,7 @@ export const MyPlaylist = ({
   if (!selector.selected) {
     return (
       <GetTopClauseBubble
+        selected={selector.selected}
         amount={selector.amount}
         onClick={() => handleChange({ ...selector, selected: true })}
       />

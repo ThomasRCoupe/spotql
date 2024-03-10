@@ -49,7 +49,6 @@ const VariantBubble = ({
       </div>
       {selected && (
         <div
-          className="w-32 rounded-2xl bg-medium-grey"
           ref={refs.setFloating}
           style={floatingStyles}
           {...getFloatingProps}

@@ -11,7 +11,7 @@ export const GetAll = ({ selector, onChange: handleChange }: GetAllClause) => {
   return (
     <VariantBubble
       type="selector"
-      variant="primary"
+      variant={selector.selected ? "primary" : "inverted"}
       onChange={(newSelector) => handleChange(newSelector as Selector)}
       selected={selector.selected}
       onSelectedChange={(newSelected) =>
