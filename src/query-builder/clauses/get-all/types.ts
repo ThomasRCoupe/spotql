@@ -1,3 +1,4 @@
 export interface GetAllSelector {
-  type: "getAll";
+  type: "selector";
+  variant: "getAll";
 }

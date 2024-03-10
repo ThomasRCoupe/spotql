@@ -5,4 +5,8 @@ export interface Query {
   selector?: Selector;
 }
 
+export type ClauseType = "selector";
+
+export type Clause = Selector;
+
 export type Selector = GetAllSelector | GetTopSelector;

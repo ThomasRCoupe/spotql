@@ -1,22 +1,24 @@
-import { Clause } from "../../../design-system/Clause";
+import { ClauseButton } from "../../../design-system/Clause";
 import { ClauseNumberInput } from "../../../design-system/ClauseNumberInput";
 
 interface GetTopClauseProps {
   amount: number | undefined;
   onAmountChange: (amount: number | undefined) => void;
+  onClick: () => void;
 }
 
 export const GetTopClause = ({
   amount,
   onAmountChange: handleAmountChange,
+  onClick: handleClick,
 }: GetTopClauseProps) => {
   return (
-    <Clause variant="standard">
+    <ClauseButton variant="standard" onClick={handleClick}>
       Get Top{" "}
       <ClauseNumberInput
         value={amount}
         onChange={(newAmout) => handleAmountChange(newAmout)}
       />
-    </Clause>
+    </ClauseButton>
   );
 };

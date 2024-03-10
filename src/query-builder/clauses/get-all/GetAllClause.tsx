@@ -1,3 +1,11 @@
-import { Clause } from "../../../design-system/Clause";
+import { ClauseButton } from "../../../design-system/Clause";
 
-export const GetAllClause = () => <Clause variant="standard">Get All</Clause>;
+export interface GetAllClauseProps {
+  onClick: () => void;
+}
+
+export const GetAllClause = ({ onClick: handleClick }: GetAllClauseProps) => (
+  <ClauseButton variant="standard" onClick={handleClick}>
+    Get All
+  </ClauseButton>
+);
