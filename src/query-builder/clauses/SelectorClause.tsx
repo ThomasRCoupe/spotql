@@ -23,9 +23,9 @@ export const SelectorClause = ({
   }
 
   switch (selector.variant) {
-    case "getAll":
+    case "get-all":
       return <GetAllClause onClick={handleClick} />;
-    case "getTop":
+    case "get-top":
       return (
         <GetTopClause
           amount={selector.amount}

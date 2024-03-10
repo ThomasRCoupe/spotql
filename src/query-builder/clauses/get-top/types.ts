@@ -1,5 +1,6 @@
 export interface GetTopSelector {
   type: "selector";
-  variant: "getTop";
+  variant: "get-top";
+  displayName: "Get Top";
   amount?: number;
 }

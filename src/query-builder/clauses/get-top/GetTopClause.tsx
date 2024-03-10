@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ClauseButton } from "../../../design-system/Clause";
 import { ClauseNumberInput } from "../../../design-system/ClauseNumberInput";
 
@@ -12,12 +13,23 @@ export const GetTopClause = ({
   onAmountChange: handleAmountChange,
   onClick: handleClick,
 }: GetTopClauseProps) => {
+  const [editing, setEditing] = useState(false);
+
   return (
-    <ClauseButton variant="standard" onClick={handleClick}>
-      Get Top{" "}
+    <ClauseButton
+      variant="standard"
+      onClick={() => {
+        handleClick();
+        setEditing(true);
+      }}
+    >
+      Get Top
       <ClauseNumberInput
+        editing={editing}
         value={amount}
+        placeholder="Amount"
         onChange={(newAmout) => handleAmountChange(newAmout)}
+        onConfirm={() => setEditing(false)}
       />
     </ClauseButton>
   );

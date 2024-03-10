@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Clause, ClauseType } from "./types";
-import { useFloating } from "@floating-ui/react";
+import { useFloating, offset } from "@floating-ui/react";
 import ClauseSwitch from "./ClauseSwitch";
 import { getVariants } from "./variants";
+import clsx from "clsx";
 
 export interface ClauseSuggestionProps {
   type: ClauseType;
@@ -19,6 +20,8 @@ const QueryClause = ({
   const { refs, floatingStyles } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
+    placement: "bottom-start",
+    middleware: [offset(8)],
   });
 
   const handleClick = () => setIsOpen((current) => !current);
@@ -42,17 +45,21 @@ const QueryClause = ({
       </div>
       {isOpen && (
         <div
-          className="w-32 p-4 flex flex-col gap-2 rounded-lg bg-medium-grey"
+          className="w-32 rounded-2xl bg-medium-grey"
           ref={refs.setFloating}
           style={floatingStyles}
         >
-          {suggestions.map((suggestion) => (
+          {suggestions.map((suggestion, index) => (
             <button
-              className="hover:bg-white/10"
+              className={clsx(
+                "w-full px-4 hover:bg-white/10 text-left",
+                index === 0 ? "pt-2 rounded-t-2xl" : "pt-1",
+                index === suggestions.length - 1 ? "pb-2 rounded-b-2xl" : "pb-1"
+              )}
               key={suggestion.variant}
               onClick={() => handleSuggestionClick(suggestion)}
             >
-              {suggestion.variant}
+              {suggestion.displayName}
             </button>
           ))}
         </div>

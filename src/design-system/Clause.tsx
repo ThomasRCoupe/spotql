@@ -15,7 +15,7 @@ export const ClauseButton = ({
 }: ClauseProps) => (
   <button
     className={clsx(
-      "h-8 px-4 rounded-full",
+      "h-8 px-4 flex items-center gap-1 rounded-full",
       variant === "standard"
         ? "bg-white hover:bg-white/90 text-black"
         : "bg-white/10 hover:bg-white/20 text-light-grey"
