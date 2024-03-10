@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useEffect, useRef } from "react";
 export type WidthVariant = "small" | "medium";
 
 export interface ClauseInputProps {
@@ -18,6 +19,14 @@ export const ClauseInput = ({
   onConfirm: handleConfirm,
   width,
 }: ClauseInputProps) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (editing) {
+      inputRef.current?.focus();
+    }
+  }, [editing]);
+
   const handeKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleConfirm();
@@ -26,13 +35,16 @@ export const ClauseInput = ({
 
   return editing ? (
     <input
+      ref={inputRef}
       type="text"
       className={clsx(
         "h-full px-1 outline-none bg-black/10",
         getTailwindWidth(width)
       )}
       value={value ?? ""}
+      placeholder={placeholder}
       onChange={(e) => handleChange(e.target.value)}
+      onBlur={() => handleConfirm()}
       onKeyDown={handeKeyDown}
     />
   ) : value ? (
@@ -47,7 +59,7 @@ export const ClauseInput = ({
 const getTailwindWidth = (width: WidthVariant) => {
   switch (width) {
     case "small":
-      return "w-12";
+      return "w-16";
     case "medium":
       return "w-32";
   }

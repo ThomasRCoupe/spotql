@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ClauseButton } from "../../../design-system/Clause";
+import { ClauseButton } from "../../../design-system/ClauseButton";
 import { ClauseNumberInput } from "../../../design-system/ClauseNumberInput";
 
 interface GetTopClauseProps {
@@ -13,7 +13,7 @@ export const GetTopClause = ({
   onAmountChange: handleAmountChange,
   onClick: handleClick,
 }: GetTopClauseProps) => {
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(true);
 
   return (
     <ClauseButton

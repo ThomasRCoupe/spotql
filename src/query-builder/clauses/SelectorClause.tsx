@@ -1,4 +1,4 @@
-import { ClauseButton } from "../../design-system/Clause";
+import { ClauseButton } from "../../design-system/ClauseButton";
 import { GetAllClause } from "./get-all/GetAllClause";
 import { GetTopClause } from "./get-top/GetTopClause";
 import { Selector } from "../types";
