@@ -15,23 +15,11 @@ export const useMyPlaylists = () => {
       lastPage.length === 50 ? pages.length + 1 : undefined,
   });
 
-  // const fetchAllPlaylists = async () => {
-  //   for (let i = 0; i < 5; i++) {
-  //     const { data: pageData } = await fetchNextPage();
-
-  //     if (!pageData) {
-  //       break;
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   void fetchAllPlaylists();
-  // }, []);
-
   return {
     playlists: data?.pages?.flatMap((page) => page),
     fetchNextPage,
+    hasNextPage,
+    isFetching,
   };
 };
 
