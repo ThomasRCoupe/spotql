@@ -6,16 +6,14 @@ import QueryPage from "./pages/QueryPage";
 import { PlaylistsPage } from "./pages/PlaylistsPage";
 
 const App = () => (
-  <div className="w-screen h-screen flex items-center justify-center bg-black">
-    <div className="w-5/6 max-w-4xl max-h-5/6 p-4 rounded-xl bg-dark-grey">
-      <Routes>
-        <Route path="/" element={<Navigate to="/query" />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/playlists" element={<PlaylistsPage />} />
-        <Route path="/query" element={<QueryPage />} />
-        <Route path="/secrets" element={<SecretPage />} />
-      </Routes>
-    </div>
+  <div className="w-screen h-screen flex flex-col items-center justify-center bg-black">
+    <Routes>
+      <Route path="/" element={<Navigate to="/query" />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/playlists" element={<PlaylistsPage />} />
+      <Route path="/query" element={<QueryPage />} />
+      <Route path="/secrets" element={<SecretPage />} />
+    </Routes>
   </div>
 );
 
