@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Bubble } from "../../design-system/Bubble";
 import VariantBubble from "../VariantBubble";
-import { Clause as ClauseBubble } from "../types";
+import { Clause, Clause as ClauseBubble } from "../types";
 import { ClauseArgument } from "./types";
 import ClauseArgumentBubble from "./ClauseArgumentBubble";
 
@@ -22,6 +22,18 @@ interface ClauseArgumentFragment {
 
 type ClauseFragment = ClauseVariantFragment | ClauseArgumentFragment;
 
+const renderArgsAsText = <TClause extends Clause>(
+  args: ClauseArgument<TClause>[],
+  clause: TClause
+) =>
+  args.reduce(
+    (argsText, arg) =>
+      `${argsText ? `${argsText}, ` : ""} ${
+        arg.renderText(clause) ?? arg.name
+      }`,
+    ""
+  );
+
 const ClauseBubble = <TClause extends ClauseBubble>({
   clause,
   onChange: handleChange,
@@ -35,12 +47,9 @@ const ClauseBubble = <TClause extends ClauseBubble>({
         variant="inverted"
         onClick={() => handleChange({ ...clause, selected: true })}
       >
-        {clause.displayName +
-          (args?.reduce(
-            (argsText, arg) =>
-              `${argsText} ${arg.renderText(clause) ?? arg.name}`,
-            ""
-          ) ?? "")}
+        {`${clause.displayName}${
+          args ? `: ${renderArgsAsText(args, clause)}` : ""
+        }`}
       </Bubble>
     );
   }
