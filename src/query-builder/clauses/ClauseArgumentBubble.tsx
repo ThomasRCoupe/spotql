@@ -19,15 +19,20 @@ const ClauseArgumentBubble = <TClause extends Clause>({
   onSelectedChange: handleSelectedChange,
   onConfirm: handleConfirm,
 }: ClauseArgumentBubbleProps<TClause>) => {
+  console.log("ClauseArgumentBubble", selected);
+
   if (!selected) {
-    <Bubble
-      variant="primary"
-      onClick={() => {
-        handleSelectedChange(true);
-      }}
-    >
-      {arg.renderText(clause) ?? arg.name}
-    </Bubble>;
+    return (
+      <Bubble
+        variant="primary"
+        onClick={() => {
+          console.log("setting selected to true");
+          handleSelectedChange(true);
+        }}
+      >
+        {arg.renderText(clause) ?? arg.name}
+      </Bubble>
+    );
   }
 
   return (
@@ -36,6 +41,7 @@ const ClauseArgumentBubble = <TClause extends Clause>({
         clause,
         selected,
         onChange: handleChange,
+        onSelectedChange: handleSelectedChange,
         onConfirm: handleConfirm,
       })}
     </Bubble>

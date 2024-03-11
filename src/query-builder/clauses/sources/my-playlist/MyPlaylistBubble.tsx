@@ -2,7 +2,7 @@ import { MyPlaylistSource } from "./types";
 import { Source } from "../../../types";
 import ClauseBubble from "../../ClauseBubble";
 import { ClauseArgument } from "../../types";
-import { ClauseInput } from "../../../../design-system/ClauseInput";
+import MyPlaylistInput from "./MyPlaylistInput";
 
 interface MyPlaylistBubbleProps {
   clause: MyPlaylistSource;
@@ -17,14 +17,14 @@ const playlistNameArg: ClauseArgument<MyPlaylistSource> = {
     clause,
     selected,
     onChange: handleChange,
+    onSelectedChange: handleSelectedChange,
     onConfirm: handleConfirm,
   }) => (
-    <ClauseInput
-      width="large"
+    <MyPlaylistInput
+      clause={clause}
       selected={selected}
-      value={clause.playlistName}
-      placeholder={"Playlist Name"}
-      onChange={(playlistName) => handleChange({ ...clause, playlistName })}
+      onChange={handleChange}
+      onSelectedChange={handleSelectedChange}
       onConfirm={handleConfirm}
     />
   ),

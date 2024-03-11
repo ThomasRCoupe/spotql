@@ -54,6 +54,8 @@ const ClauseBubble = <TClause extends ClauseBubble>({
     );
   }
 
+  console.log("selectedFragment", selectedFragment);
+
   return (
     <div className="flex gap-2">
       <VariantBubble

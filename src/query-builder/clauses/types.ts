@@ -4,6 +4,7 @@ export interface RenderArgumentInputParams<TClause> {
   clause: TClause;
   selected: boolean;
   onChange: (clause: TClause) => void;
+  onSelectedChange: (selected: boolean) => void;
   onConfirm: () => void;
 }
 
