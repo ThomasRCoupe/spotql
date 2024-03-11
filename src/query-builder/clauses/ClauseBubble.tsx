@@ -64,7 +64,7 @@ const ClauseBubble = <TClause extends ClauseBubble>({
         onSelectedChange={(fragmentSelected) =>
           fragmentSelected
             ? setSelectedFragment({ type: "clause-variant" })
-            : handleChange({ ...clause, selected: false })
+            : setSelectedFragment(undefined)
         }
       >
         {clause.displayName}
@@ -82,8 +82,9 @@ const ClauseBubble = <TClause extends ClauseBubble>({
           onSelectedChange={(fragmentSelected) =>
             fragmentSelected
               ? setSelectedFragment({ type: "clause-argument", index })
-              : handleChange({ ...clause, selected: false })
+              : setSelectedFragment(undefined)
           }
+          onConfirm={() => handleChange({ ...clause, selected: false })}
         />
       ))}
     </div>

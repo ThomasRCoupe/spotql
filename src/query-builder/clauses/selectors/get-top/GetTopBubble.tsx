@@ -17,14 +17,14 @@ const amountArg: ClauseArgument<GetTopSelector> = {
     clause,
     selected,
     onChange: handleChange,
-    onSelectedChange: handleSelectedChange,
+    onConfirm: handleConfirm,
   }) => (
     <ClauseNumberInput
       selected={selected}
       value={clause.amount}
       placeholder={"Amount"}
       onChange={(amount) => handleChange({ ...clause, amount })}
-      onConfirm={() => handleSelectedChange(false)}
+      onConfirm={handleConfirm}
     />
   ),
 };

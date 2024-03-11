@@ -17,7 +17,7 @@ const playlistNameArg: ClauseArgument<MyPlaylistSource> = {
     clause,
     selected,
     onChange: handleChange,
-    onSelectedChange: handleSelectedChange,
+    onConfirm: handleConfirm,
   }) => (
     <ClauseInput
       width="large"
@@ -25,7 +25,7 @@ const playlistNameArg: ClauseArgument<MyPlaylistSource> = {
       value={clause.playlistName}
       placeholder={"Playlist Name"}
       onChange={(playlistName) => handleChange({ ...clause, playlistName })}
-      onConfirm={() => handleSelectedChange(false)}
+      onConfirm={handleConfirm}
     />
   ),
 };

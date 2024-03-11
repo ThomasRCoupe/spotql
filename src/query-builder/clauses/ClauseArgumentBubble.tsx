@@ -7,7 +7,8 @@ interface ClauseArgumentBubbleProps<TClause extends Clause> {
   arg: ClauseArgument<TClause>;
   selected: boolean;
   onChange: (clause: TClause) => void;
-  onSelectedChange: (selected: boolean) => void;
+  onSelectedChange: (seleced: boolean) => void;
+  onConfirm: () => void;
 }
 
 const ClauseArgumentBubble = <TClause extends Clause>({
@@ -16,6 +17,7 @@ const ClauseArgumentBubble = <TClause extends Clause>({
   selected,
   onChange: handleChange,
   onSelectedChange: handleSelectedChange,
+  onConfirm: handleConfirm,
 }: ClauseArgumentBubbleProps<TClause>) => {
   if (!selected) {
     <Bubble
@@ -34,7 +36,7 @@ const ClauseArgumentBubble = <TClause extends Clause>({
         clause,
         selected,
         onChange: handleChange,
-        onSelectedChange: (newSelected) => handleSelectedChange(newSelected),
+        onConfirm: handleConfirm,
       })}
     </Bubble>
   );
