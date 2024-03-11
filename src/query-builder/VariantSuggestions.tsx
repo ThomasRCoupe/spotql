@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { Clause, ClauseType } from "./types";
 import { getVariants } from "./variants";
+import SuggestionList from "../design-system/SuggestionList";
 
 interface VariantSuggestionsProps {
   type: ClauseType;
@@ -14,7 +15,7 @@ const VariantSuggestions = ({
   const suggestions = getVariants(type);
 
   return (
-    <div className="flex flex-col rounded-2xl bg-medium-grey">
+    <SuggestionList>
       {suggestions.map((suggestion, index) => (
         <button
           className={clsx(
@@ -28,7 +29,7 @@ const VariantSuggestions = ({
           {suggestion.displayName}
         </button>
       ))}
-    </div>
+    </SuggestionList>
   );
 };
 
