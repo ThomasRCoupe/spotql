@@ -16,7 +16,10 @@ interface SourceAddAction {
   source: Source;
 }
 
-type QueryAction = SelectorChangeAction | SourceChangeAction | SourceAddAction;
+export type QueryAction =
+  | SelectorChangeAction
+  | SourceChangeAction
+  | SourceAddAction;
 
 const deselectClause = (clause: Clause): Clause => ({
   ...clause,

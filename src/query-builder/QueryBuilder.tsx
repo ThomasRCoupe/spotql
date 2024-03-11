@@ -1,12 +1,15 @@
-import { Selector, Source } from "./types";
+import { Query, Selector, Source } from "./types";
 import SelectorBubble from "./clauses/selectors/SelectorBubble";
 import SourceBubble from "./clauses/sources/SourceBubble";
 import PlaceholderBubble from "./PlaceholderBubble";
-import { useQueryReducer } from "./useQueryReducer";
+import { QueryAction } from "./useQueryReducer";
 
-const QueryBuilder = () => {
-  const [query, dispatch] = useQueryReducer({ sources: [] });
+interface QueryBuilderProps {
+  query: Query;
+  dispatch: (action: QueryAction) => void;
+}
 
+const QueryBuilder = ({ query, dispatch }: QueryBuilderProps) => {
   return (
     <div className="flex gap-2">
       {query.selector ? (
