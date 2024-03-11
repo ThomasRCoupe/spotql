@@ -1,8 +1,9 @@
 import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
 import { Avatar } from "../design-system/Avatar";
+import { Button } from "../design-system/Button";
 
 export const ProfilePage = () => {
-  const { profile, status } = useSpotifyUserProfile();
+  const { profile, status, clearToken } = useSpotifyUserProfile();
 
   if (status === "pending") {
     return <h1>Loading...</h1>;
@@ -13,8 +14,8 @@ export const ProfilePage = () => {
   }
 
   return (
-    <div className="w-full h-full">
-      <section className="mb-2 flex flex-col gap-2">
+    <div className="w-full h-full flex flex-col gap-2">
+      <section className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold">SpotQL</h1>
         <div className="flex gap-2 items-center">
           <span id="avatar">
@@ -30,6 +31,11 @@ export const ProfilePage = () => {
             Logged in as <span id="displayName">{profile.display_name}</span>
           </h2>
         </div>
+      </section>
+      <section className="flex gap-2">
+        <Button variant="primary" onClick={() => clearToken()}>
+          Sign Out
+        </Button>
       </section>
     </div>
   );

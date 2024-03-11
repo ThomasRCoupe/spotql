@@ -3,7 +3,7 @@ import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
 import { useQuery } from "@tanstack/react-query";
 
 export const useSpotifyUserProfile = () => {
-  const { token, refetch: refetchToken } = useSpotifyUserAccessToken();
+  const { token, clearToken } = useSpotifyUserAccessToken();
 
   const { data, status } = useQuery({
     queryKey: ["spotifyUserProfile"],
@@ -14,7 +14,7 @@ export const useSpotifyUserProfile = () => {
   return {
     profile: data,
     status,
-    refetchToken,
+    clearToken,
   };
 };
 

@@ -1,36 +1,58 @@
 import { useQuery } from "@tanstack/react-query";
 import { SpotifyAccessToken } from "./types";
+import Cookies from "js-cookie";
 
 export const useSpotifyUserAccessToken = () => {
+  const token = Cookies.get("spotifyUserAccessToken");
+
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
 
-  if (!code) {
-    redirectToSpotifyUserAuth(clientId);
+  const redirectUrl = window.location.href.split("?")[0];
+
+  if (!token && !code) {
+    redirectToSpotifyUserAuth(clientId, redirectUrl);
   }
 
-  const { data, status, refetch } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["spotifyUserAccessToken"],
-    queryFn: () => (code ? fetchUserAccessToken(clientId, code) : undefined),
-    enabled: !!code,
+    queryFn: () =>
+      !token && code
+        ? fetchUserAccessToken(clientId, code, redirectUrl)
+        : undefined,
+    enabled: !token && !!code,
   });
 
+  if (status === "success" && data) {
+    Cookies.set("spotifyUserAccessToken", data.access_token, {
+      expires: data.expires_in,
+    });
+  }
+
+  const clearToken = () => {
+    Cookies.remove("spotifyUserAccessToken");
+  };
+
   return {
-    token: data?.access_token,
-    status,
-    refetch,
+    token: token ?? data?.access_token,
+    clearToken,
+    status: token ? "success" : status,
   };
 };
 
-const fetchUserAccessToken = async (clientId: string, code: string) => {
+const fetchUserAccessToken = async (
+  clientId: string,
+  code: string,
+  redirectUrl: string
+) => {
   const verifier = localStorage.getItem("verifier");
 
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");
   params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/playlists");
+  params.append("redirect_uri", redirectUrl);
   params.append("code_verifier", verifier!);
 
   const options = {
@@ -52,13 +74,19 @@ const fetchUserAccessToken = async (clientId: string, code: string) => {
   return (await response.json()) as SpotifyAccessToken;
 };
 
-const redirectToSpotifyUserAuth = async (clientId: string) => {
-  const spotifyAuthUrl = await generateSpotifyAuthUrl(clientId);
+const redirectToSpotifyUserAuth = async (
+  clientId: string,
+  redirectUrl: string
+) => {
+  const spotifyAuthUrl = await generateSpotifyAuthUrl(clientId, redirectUrl);
 
   window.location.href = spotifyAuthUrl;
 };
 
-const generateSpotifyAuthUrl = async (clientId: string) => {
+const generateSpotifyAuthUrl = async (
+  clientId: string,
+  redirectUrl: string
+) => {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);
 
@@ -67,7 +95,7 @@ const generateSpotifyAuthUrl = async (clientId: string) => {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("response_type", "code");
-  params.append("redirect_uri", "http://localhost:5173/playlists");
+  params.append("redirect_uri", redirectUrl);
   params.append("scope", "user-read-private user-read-email");
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
