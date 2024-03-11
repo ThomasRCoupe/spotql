@@ -2,10 +2,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SecretPage } from "./pages/SecretsPage";
 import "./App.css";
-import { QueryPage } from "./pages/QueryPage";
+import QueryPage from "./pages/QueryPage";
 import { PlaylistsPage } from "./pages/PlaylistsPage";
 
-export const App = () => (
+const App = () => (
   <div className="w-screen h-screen flex items-center justify-center bg-black">
     <div className="w-5/6 max-w-4xl max-h-5/6 p-4 rounded-xl bg-dark-grey">
       <Routes>
@@ -18,3 +18,5 @@ export const App = () => (
     </div>
   </div>
 );
+
+export default App;

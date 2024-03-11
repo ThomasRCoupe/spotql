@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Bubble } from "../../design-system/Bubble";
 import VariantBubble from "../VariantBubble";
-import { Clause } from "../types";
+import { Clause as ClauseBubble } from "../types";
 import { ClauseArgument } from "./types";
 import ClauseArgumentBubble from "./ClauseArgumentBubble";
 
-interface ClauseProps<TClause extends Clause> {
+interface ClauseBubbleProps<TClause extends ClauseBubble> {
   clause: TClause;
   onChange: (clause: TClause) => void;
   args?: ClauseArgument<TClause>[];
 }
 
-interface ClauseTypeFragment {
-  type: "clause-type";
+interface ClauseVariantFragment {
+  type: "clause-variant";
 }
 
 interface ClauseArgumentFragment {
@@ -20,13 +20,13 @@ interface ClauseArgumentFragment {
   index: number;
 }
 
-type ClauseFragment = ClauseTypeFragment | ClauseArgumentFragment;
+type ClauseFragment = ClauseVariantFragment | ClauseArgumentFragment;
 
-const Clause = <TClause extends Clause>({
+const ClauseBubble = <TClause extends ClauseBubble>({
   clause,
   onChange: handleChange,
   args,
-}: ClauseProps<TClause>) => {
+}: ClauseBubbleProps<TClause>) => {
   const [selectedFragment, setSelectedFragment] = useState<ClauseFragment>();
 
   if (!clause.selected) {
@@ -36,11 +36,11 @@ const Clause = <TClause extends Clause>({
         onClick={() => handleChange({ ...clause, selected: true })}
       >
         {clause.displayName +
-          args?.reduce(
+          (args?.reduce(
             (argsText, arg) =>
               `${argsText} ${arg.renderText(clause) ?? arg.name}`,
             ""
-          )}
+          ) ?? "")}
       </Bubble>
     );
   }
@@ -50,11 +50,11 @@ const Clause = <TClause extends Clause>({
       <VariantBubble
         type="selector"
         variant="primary"
-        selected={selectedFragment?.type === "clause-type"}
+        selected={selectedFragment?.type === "clause-variant"}
         onChange={(newClause) => handleChange(newClause as TClause)}
         onSelectedChange={(fragmentSelected) =>
           fragmentSelected
-            ? setSelectedFragment({ type: "clause-type" })
+            ? setSelectedFragment({ type: "clause-variant" })
             : handleChange({ ...clause, selected: false })
         }
       >
@@ -81,4 +81,4 @@ const Clause = <TClause extends Clause>({
   );
 };
 
-export default Clause;
+export default ClauseBubble;

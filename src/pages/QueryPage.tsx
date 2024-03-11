@@ -1,6 +1,6 @@
-import { QueryBuilder } from "../query-builder/QueryBuilder";
+import QueryBuilder from "../query-builder/QueryBuilder";
 
-export const QueryPage = () => {
+const QueryPage = () => {
   return (
     <div className="w-full h-full">
       <section className="mb-2 flex flex-col gap-2">
@@ -14,3 +14,5 @@ export const QueryPage = () => {
     </div>
   );
 };
+
+export default QueryPage;

@@ -1,10 +1,10 @@
 import { MyPlaylistSource } from "./types";
 import { Source } from "../../../types";
-import Clause from "../../Clause";
+import ClauseBubble from "../../ClauseBubble";
 import { ClauseArgument } from "../../types";
 import { ClauseInput } from "../../../../design-system/ClauseInput";
 
-interface MyPlaylistProps {
+interface MyPlaylistBubbleProps {
   clause: MyPlaylistSource;
   onChange: (source: Source) => void;
 }
@@ -30,12 +30,15 @@ const playlistNameArg: ClauseArgument<MyPlaylistSource> = {
   ),
 };
 
-const MyPlaylist = ({ clause, onChange: handleChange }: MyPlaylistProps) => (
-  <Clause<MyPlaylistSource>
+const MyPlaylistBubble = ({
+  clause,
+  onChange: handleChange,
+}: MyPlaylistBubbleProps) => (
+  <ClauseBubble<MyPlaylistSource>
     clause={clause}
     onChange={handleChange}
     args={[playlistNameArg]}
   />
 );
 
-export default MyPlaylist;
+export default MyPlaylistBubble;

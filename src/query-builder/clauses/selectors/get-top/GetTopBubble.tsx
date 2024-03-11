@@ -1,10 +1,10 @@
 import { GetTopSelector } from "./types";
 import { Selector } from "../../../types";
-import Clause from "../../Clause";
+import ClauseBubble from "../../ClauseBubble";
 import { ClauseArgument } from "../../types";
 import { ClauseNumberInput } from "../../../../design-system/ClauseNumberInput";
 
-interface GetTopProps {
+interface GetTopBubbleProps {
   clause: GetTopSelector;
   onChange: (selector: Selector) => void;
 }
@@ -29,12 +29,15 @@ const amountArg: ClauseArgument<GetTopSelector> = {
   ),
 };
 
-const GetTop = ({ clause, onChange: handleChange }: GetTopProps) => (
-  <Clause<GetTopSelector>
+const GetTopBubble = ({
+  clause,
+  onChange: handleChange,
+}: GetTopBubbleProps) => (
+  <ClauseBubble<GetTopSelector>
     clause={clause}
     onChange={handleChange}
     args={[amountArg]}
   />
 );
 
-export default GetTop;
+export default GetTopBubble;
