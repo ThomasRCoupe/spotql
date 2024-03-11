@@ -1,6 +1,6 @@
 import { Bubble } from "../../../design-system/Bubble";
 import { ClauseDraft } from "../types";
-import { ClauseArgument } from "./types";
+import { ClauseArgument } from "./ClauseBubble";
 
 interface ClauseArgumentBubbleProps<TClause extends ClauseDraft> {
   clause: TClause;

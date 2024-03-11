@@ -1,9 +1,22 @@
 import { useState } from "react";
 import { Bubble } from "../../../design-system/Bubble";
-import VariantBubble from "../components/VariantBubble";
+import VariantBubble from "./VariantBubble";
 import { ClauseDraft, ClauseDraft as ClauseBubble } from "../types";
-import { ClauseArgument } from "./types";
 import ClauseArgumentBubble from "./ClauseArgumentBubble";
+
+export interface RenderArgumentInputParams<TClause> {
+  clause: TClause;
+  selected: boolean;
+  onChange: (clause: TClause) => void;
+  onSelectedChange: (selected: boolean) => void;
+  onConfirm: () => void;
+}
+
+export interface ClauseArgument<TClause extends ClauseDraft> {
+  name: string;
+  renderText: (clause: TClause) => string | undefined;
+  renderInput: (params: RenderArgumentInputParams<TClause>) => JSX.Element;
+}
 
 interface ClauseBubbleProps<TClause extends ClauseBubble> {
   clause: TClause;

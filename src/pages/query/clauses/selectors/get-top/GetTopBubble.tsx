@@ -1,7 +1,7 @@
 import { GetTopSelectorDraft } from "./types";
 import { SelectorDraft } from "../../../types";
-import ClauseBubble from "../../ClauseBubble";
-import { ClauseArgument } from "../../types";
+import ClauseBubble from "../../../components/ClauseBubble";
+import { ClauseArgument } from "../../../components/types";
 import { ClauseNumberInput } from "../../../../../design-system/ClauseNumberInput";
 
 interface GetTopBubbleProps {

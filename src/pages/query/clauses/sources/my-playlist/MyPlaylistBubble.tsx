@@ -1,7 +1,7 @@
 import { MyPlaylistSourceDraft } from "./types";
 import { SourceDraft } from "../../../types";
-import ClauseBubble from "../../ClauseBubble";
-import { ClauseArgument } from "../../types";
+import ClauseBubble from "../../../components/ClauseBubble";
+import { ClauseArgument } from "../../../components/types";
 import MyPlaylistInput from "./MyPlaylistInput";
 
 interface MyPlaylistBubbleProps {

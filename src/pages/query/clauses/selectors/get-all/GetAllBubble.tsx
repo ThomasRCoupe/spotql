@@ -1,5 +1,5 @@
 import { SelectorDraft } from "../../../types";
-import ClauseBubble from "../../ClauseBubble";
+import ClauseBubble from "../../../components/ClauseBubble";
 import { GetAllSelectorDraft } from "./types";
 
 interface GetAllBubbleProps {
