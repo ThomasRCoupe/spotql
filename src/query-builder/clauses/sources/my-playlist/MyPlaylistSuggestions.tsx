@@ -15,7 +15,11 @@ const MyPlaylistSuggestions = ({
   const { playlists, status } = useMyPlaylists();
 
   if (status === "error") {
-    return <SuggestionList>Error Loading Playlists</SuggestionList>;
+    return (
+      <SuggestionList>
+        <div className="px-4 py-2 rounded-2xl">Error Loading Playlists</div>
+      </SuggestionList>
+    );
   }
   const filteredPlaylists = searchTerm
     ? playlists?.filter((playlist) =>
@@ -29,10 +33,8 @@ const MyPlaylistSuggestions = ({
         <button
           className={clsx(
             "px-4 py-2 hover:bg-white/10 text-left max-w-64 truncate",
-            index === 0 ? "pt-2 rounded-t-2xl" : "pt-1",
-            index === filteredPlaylists.length - 1
-              ? "pb-2 rounded-b-2xl"
-              : "pb-1"
+            index === 0 && "rounded-t-2xl",
+            index === filteredPlaylists.length - 1 && "pb-2 rounded-b-2xl"
           )}
           key={playlist.id}
           onClick={() => handleSelectPlaylist(playlist)}
@@ -40,7 +42,9 @@ const MyPlaylistSuggestions = ({
           {playlist.name}
         </button>
       ))}
-      {status === "pending" && "Loading..."}
+      {status === "pending" && (
+        <div className="px-4 py-2 rounded-2xl">Loading...</div>
+      )}
     </SuggestionList>
   );
 };
