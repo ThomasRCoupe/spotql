@@ -28,7 +28,7 @@ const MyPlaylistSuggestions = ({
       {filteredPlaylists?.map((playlist, index) => (
         <button
           className={clsx(
-            "px-4 py-2 hover:bg-white/10 text-left",
+            "px-4 py-2 hover:bg-white/10 text-left max-w-64 truncate",
             index === 0 ? "pt-2 rounded-t-2xl" : "pt-1",
             index === filteredPlaylists.length - 1
               ? "pb-2 rounded-b-2xl"
