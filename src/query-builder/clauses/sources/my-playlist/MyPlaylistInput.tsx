@@ -62,6 +62,7 @@ const MyPlaylistInput = ({
               handleChange({
                 ...clause,
                 playlistName: playlist.name,
+                playlistId: playlist.id,
                 selected: false,
               })
             }

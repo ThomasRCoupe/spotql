@@ -4,4 +4,5 @@ export interface MyPlaylistSource {
   displayName: "My Playlist";
   selected: boolean;
   playlistName?: string;
+  playlistId?: string;
 }
