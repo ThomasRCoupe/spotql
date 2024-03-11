@@ -57,7 +57,7 @@ const ClauseBubble = <TClause extends ClauseBubble>({
   return (
     <div className="flex gap-2">
       <VariantBubble
-        type="selector"
+        type={clause.type}
         variant="primary"
         selected={selectedFragment?.type === "clause-variant"}
         onChange={(newClause) => handleChange(newClause as TClause)}
