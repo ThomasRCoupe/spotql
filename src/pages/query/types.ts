@@ -26,7 +26,7 @@ export type SourceDraft = MyPlaylistSourceDraft;
 
 export interface Query {
   selector: Selector;
-  sources: SourceDraft[];
+  sources: Source[];
 }
 
 export type Clause = Selector | Source;

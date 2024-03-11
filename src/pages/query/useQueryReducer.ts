@@ -33,7 +33,10 @@ const deselectQuery = (query: QueryDraft): QueryDraft => ({
   ],
 });
 
-const reduceQuery = (state: QueryDraft, action: QueryAction): QueryDraft => {
+const reduceQueryDraft = (
+  state: QueryDraft,
+  action: QueryAction
+): QueryDraft => {
   switch (action.type) {
     case "selector-change":
       return {
@@ -57,5 +60,5 @@ const reduceQuery = (state: QueryDraft, action: QueryAction): QueryDraft => {
   }
 };
 
-export const useQueryReducer = (initialQuery: QueryDraft) =>
-  useReducer(reduceQuery, initialQuery);
+export const useQueryDraftReducer = () =>
+  useReducer(reduceQueryDraft, { sources: [] });

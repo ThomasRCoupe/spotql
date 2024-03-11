@@ -1,11 +1,11 @@
-import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
+import { useCurrentUser } from "../spotify/useCurrentUser";
 import { Avatar } from "../design-system/Avatar";
 import { Button } from "../design-system/Button";
 import { useNavigate } from "react-router-dom";
 import Panel from "../design-system/Panel";
 
 export const ProfilePage = () => {
-  const { profile, status, clearToken } = useSpotifyUserProfile();
+  const { user: profile, status, clearToken } = useCurrentUser();
   const navigate = useNavigate();
 
   if (status === "pending") {

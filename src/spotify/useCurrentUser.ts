@@ -1,8 +1,8 @@
-import { SpotifyUserProfile } from "./types";
+import { User } from "./types";
 import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
 import { useQuery } from "@tanstack/react-query";
 
-export const useSpotifyUserProfile = () => {
+export const useCurrentUser = () => {
   const { token, clearToken } = useSpotifyUserAccessToken();
 
   const { data, status } = useQuery({
@@ -12,7 +12,7 @@ export const useSpotifyUserProfile = () => {
   });
 
   return {
-    profile: data,
+    user: data,
     status,
     clearToken,
   };
@@ -27,5 +27,5 @@ const fetchSpotifyUserProfile = async (token: string) => {
     throw new Error("Failed to fetch data");
   }
 
-  return (await response.json()) as SpotifyUserProfile;
+  return (await response.json()) as User;
 };

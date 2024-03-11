@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { SpotifyAccessToken } from "./types";
+import { AccessToken } from "./types";
 import Cookies from "js-cookie";
 
 export const useSpotifyUserAccessToken = () => {
@@ -71,7 +71,7 @@ const fetchUserAccessToken = async (
     throw new Error("Failed to fetch data");
   }
 
-  return (await response.json()) as SpotifyAccessToken;
+  return (await response.json()) as AccessToken;
 };
 
 const redirectToSpotifyUserAuth = async (
