@@ -27,7 +27,7 @@ const MyPlaylistInput = ({
     open: selected,
     onOpenChange: handleSelectedChange,
     placement: "bottom-start",
-    middleware: [offset(8)],
+    middleware: [offset({ mainAxis: 8, crossAxis: -16 })],
   });
 
   const dismiss = useDismiss(context);
@@ -36,7 +36,11 @@ const MyPlaylistInput = ({
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps}>
+      <div
+        className="w-full h-full"
+        ref={refs.setReference}
+        {...getReferenceProps}
+      >
         <ClauseInput
           width="large"
           selected={selected}
