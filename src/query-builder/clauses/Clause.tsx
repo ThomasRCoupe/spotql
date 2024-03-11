@@ -20,7 +20,7 @@ interface ClauseArgument<TClause extends Clause> {
 interface ClauseProps<TClause extends Clause> {
   clause: TClause;
   onChange: (clause: TClause) => void;
-  args: ClauseArgument<TClause>[];
+  args?: ClauseArgument<TClause>[];
 }
 
 interface ClauseTypeFragment {
@@ -48,7 +48,7 @@ const Clause = <TClause extends Clause>({
         onClick={() => handleChange({ ...clause, selected: true })}
       >
         {clause.displayName +
-          args.reduce(
+          args?.reduce(
             (argsText, arg) =>
               `${argsText} ${arg.renderText(clause) ?? arg.name}`,
             ""
@@ -72,7 +72,7 @@ const Clause = <TClause extends Clause>({
       >
         {clause.displayName}
       </VariantBubble>
-      {args.map((arg, index) => (
+      {args?.map((arg, index) => (
         <React.Fragment key={arg.name}>
           {arg.renderInput({
             clause,

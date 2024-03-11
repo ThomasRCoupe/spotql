@@ -1,5 +1,5 @@
-import VariantBubble from "../../../VariantBubble";
 import { Selector } from "../../../types";
+import Clause from "../../Clause";
 import { GetAllSelector } from "./types";
 
 export interface GetAllClause {
@@ -7,18 +7,6 @@ export interface GetAllClause {
   onChange: (selector: Selector) => void;
 }
 
-export const GetAll = ({ selector, onChange: handleChange }: GetAllClause) => {
-  return (
-    <VariantBubble
-      type="selector"
-      variant={selector.selected ? "primary" : "inverted"}
-      onChange={(newSelector) => handleChange(newSelector as Selector)}
-      selected={selector.selected}
-      onSelectedChange={(newSelected) =>
-        handleChange({ ...selector, selected: newSelected })
-      }
-    >
-      Get All
-    </VariantBubble>
-  );
-};
+export const GetAll = ({ selector, onChange: handleChange }: GetAllClause) => (
+  <Clause<GetAllSelector> clause={selector} onChange={handleChange} />
+);
