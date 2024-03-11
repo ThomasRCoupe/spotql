@@ -1,9 +1,11 @@
 import { useSpotifyUserProfile } from "../spotify/useSpotifyUserProfile";
 import { Avatar } from "../design-system/Avatar";
 import { Button } from "../design-system/Button";
+import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
   const { profile, status, clearToken } = useSpotifyUserProfile();
+  const navigate = useNavigate();
 
   if (status === "pending") {
     return <h1>Loading...</h1>;
@@ -12,6 +14,11 @@ export const ProfilePage = () => {
   if (status === "error" || !profile) {
     return <h1>Fetching Profile Failed!</h1>;
   }
+
+  const handleSignOut = () => {
+    clearToken();
+    navigate("/");
+  };
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
@@ -33,7 +40,7 @@ export const ProfilePage = () => {
         </div>
       </section>
       <section className="flex gap-2">
-        <Button variant="primary" onClick={() => clearToken()}>
+        <Button variant="primary" onClick={handleSignOut}>
           Sign Out
         </Button>
       </section>

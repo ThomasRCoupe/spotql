@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSpotifyUserAccessToken } from "./useSpotifyUserAccessToken";
 import { SimplifiedPlaylist } from "./types";
+import { useEffect } from "react";
 
 export const useMyPlaylists = () => {
   const { token } = useSpotifyUserAccessToken();
@@ -16,12 +17,18 @@ export const useMyPlaylists = () => {
         lastPage.length === 50 ? pages.length + 1 : undefined,
     });
 
+  useEffect(() => {
+    if (status !== "error" && hasNextPage && !isFetching) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetching, status]);
+
+  const allPageFetchStatus =
+    hasNextPage && status !== "error" ? "pending" : status;
+
   return {
     playlists: data?.pages?.flatMap((page) => page),
-    fetchNextPage,
-    hasNextPage,
-    status,
-    isFetching,
+    status: allPageFetchStatus,
   };
 };
 

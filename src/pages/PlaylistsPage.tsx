@@ -1,17 +1,7 @@
-import { useEffect } from "react";
 import { useMyPlaylists } from "../spotify/useMyPlaylists";
 
 export const PlaylistsPage = () => {
-  const { playlists, fetchNextPage, hasNextPage, status, isFetching } =
-    useMyPlaylists();
-
-  console.log(playlists, isFetching, status);
-
-  useEffect(() => {
-    if (status !== "error" && hasNextPage && !isFetching) {
-      fetchNextPage();
-    }
-  }, [fetchNextPage, hasNextPage, isFetching, status]);
+  const { playlists, status } = useMyPlaylists();
 
   if (status === "error") {
     return <h1>Fetching Playlists Failed!</h1>;
