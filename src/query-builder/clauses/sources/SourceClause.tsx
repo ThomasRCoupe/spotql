@@ -12,6 +12,6 @@ export const SourceClause = ({
 }: SourceClauseProps) => {
   switch (source.variant) {
     case "my-playlist":
-      return <MyPlaylist source={source} onChange={handleChange} />;
+      return <MyPlaylist clause={source} onChange={handleChange} />;
   }
 };

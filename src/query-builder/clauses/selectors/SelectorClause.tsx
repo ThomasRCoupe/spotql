@@ -15,6 +15,6 @@ export const SelectorClause = ({
     case "get-all":
       return <GetAll selector={selector} onChange={handleChange} />;
     case "get-top":
-      return <GetTop selector={selector} onChange={handleChange} />;
+      return <GetTop clause={selector} onChange={handleChange} />;
   }
 };

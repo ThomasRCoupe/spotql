@@ -2,20 +2,8 @@ import { useState } from "react";
 import { Bubble } from "../../design-system/Bubble";
 import VariantBubble from "../VariantBubble";
 import { Clause } from "../types";
-import React from "react";
-
-interface RenderArgumentInputParams<TClause> {
-  clause: TClause;
-  selected: boolean;
-  onChange: (clause: TClause) => void;
-  onSelectedChange: (selected: boolean) => void;
-}
-
-interface ClauseArgument<TClause extends Clause> {
-  name: string;
-  renderText: (clause: TClause) => string | undefined;
-  renderInput: (params: RenderArgumentInputParams<TClause>) => JSX.Element;
-}
+import { ClauseArgument } from "./types";
+import ClauseArgumentBubble from "./ClauseArgumentBubble";
 
 interface ClauseProps<TClause extends Clause> {
   clause: TClause;
@@ -63,29 +51,31 @@ const Clause = <TClause extends Clause>({
         type="selector"
         variant="primary"
         selected={selectedFragment?.type === "clause-type"}
+        onChange={(newClause) => handleChange(newClause as TClause)}
         onSelectedChange={(fragmentSelected) =>
           fragmentSelected
             ? setSelectedFragment({ type: "clause-type" })
-            : setSelectedFragment(undefined)
+            : handleChange({ ...clause, selected: false })
         }
-        onChange={(newClause) => handleChange(newClause as TClause)}
       >
         {clause.displayName}
       </VariantBubble>
       {args?.map((arg, index) => (
-        <React.Fragment key={arg.name}>
-          {arg.renderInput({
-            clause,
-            selected:
-              selectedFragment?.type === "clause-argument" &&
-              selectedFragment.index === index,
-            onChange: handleChange,
-            onSelectedChange: (fragmentSelected) =>
-              fragmentSelected
-                ? setSelectedFragment({ type: "clause-argument", index })
-                : setSelectedFragment(undefined),
-          })}
-        </React.Fragment>
+        <ClauseArgumentBubble
+          key={arg.name}
+          clause={clause}
+          arg={arg}
+          selected={
+            selectedFragment?.type === "clause-argument" &&
+            selectedFragment.index === index
+          }
+          onChange={(newClause) => handleChange(newClause)}
+          onSelectedChange={(fragmentSelected) =>
+            fragmentSelected
+              ? setSelectedFragment({ type: "clause-argument", index })
+              : handleChange({ ...clause, selected: false })
+          }
+        />
       ))}
     </div>
   );

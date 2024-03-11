@@ -1,52 +1,41 @@
 import { MyPlaylistSource } from "./types";
-import MyPlaylistClauseBubble from "./MyPlaylistClauseBubble";
-import MyPlaylistVariantBubble from "./MyPlaylistVariantBubble";
-import MyPlaylistInputBubble from "./MyPlaylistInputBubble";
 import { Source } from "../../../types";
-import { useState } from "react";
+import Clause from "../../Clause";
+import { ClauseArgument } from "../../types";
+import { ClauseInput } from "../../../../design-system/ClauseInput";
 
 interface MyPlaylistProps {
-  source: MyPlaylistSource;
+  clause: MyPlaylistSource;
   onChange: (source: Source) => void;
 }
 
-export const MyPlaylist = ({
-  source,
-  onChange: handleChange,
-}: MyPlaylistProps) => {
-  const [inputSelected, setInputSelected] = useState(true);
-
-  if (!source.selected) {
-    return (
-      <MyPlaylistClauseBubble
-        selected={source.selected}
-        playlistName={source.playlistName}
-        onClick={() => handleChange({ ...source, selected: true })}
-      />
-    );
-  }
-
-  return (
-    <div className="flex gap-2">
-      <MyPlaylistVariantBubble
-        selected={!inputSelected}
-        onSelectedChange={(selected) => setInputSelected(!selected)}
-        onChange={handleChange}
-      />
-      <MyPlaylistInputBubble
-        selected={inputSelected}
-        onSelectedChange={(selected) => setInputSelected(selected)}
-        playlistName={source.playlistName}
-        onPlaylistNameChange={(name) =>
-          handleChange({
-            ...source,
-            playlistName: name,
-          })
-        }
-        onConfrm={() => handleChange({ ...source, selected: false })}
-      />
-    </div>
-  );
+const playlistNameArg: ClauseArgument<MyPlaylistSource> = {
+  name: "Playlist Name",
+  renderText: (clause) =>
+    clause.playlistName ? `"${clause.playlistName.toString()}"` : undefined,
+  renderInput: ({
+    clause,
+    selected,
+    onChange: handleChange,
+    onSelectedChange: handleSelectedChange,
+  }) => (
+    <ClauseInput
+      width="large"
+      selected={selected}
+      value={clause.playlistName}
+      placeholder={"Playlist Name"}
+      onChange={(playlistName) => handleChange({ ...clause, playlistName })}
+      onConfirm={() => handleSelectedChange(false)}
+    />
+  ),
 };
+
+const MyPlaylist = ({ clause, onChange: handleChange }: MyPlaylistProps) => (
+  <Clause<MyPlaylistSource>
+    clause={clause}
+    onChange={handleChange}
+    args={[playlistNameArg]}
+  />
+);
 
 export default MyPlaylist;
