@@ -34,16 +34,11 @@ const QueryPage = () => {
           </section>
         </div>
       </Panel>
-      <Panel>
-        <div className="w-full h-96 flex flex-col gap-2">
-          <section className="flex flex-col gap-2">
-            <h2 className="text-light-grey">Query Results</h2>
-          </section>
-          <section className="h-full">
-            {query ? <QueryResults query={query} /> : undefined}
-          </section>
-        </div>
-      </Panel>
+      {query && (
+        <Panel>
+          <QueryResults query={query} />
+        </Panel>
+      )}
     </>
   );
 };
