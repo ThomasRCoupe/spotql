@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../../design-system/Button";
+import Button from "../../design-system/Button";
 import Panel from "../../design-system/Panel";
 import QueryBuilder from "./QueryBuilder";
 import { Query } from "./types";

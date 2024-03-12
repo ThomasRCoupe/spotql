@@ -11,6 +11,8 @@ const useAuthenticatedFetch = () => {
   const { token, refreshToken } = useUserAccessToken();
 
   const authenticatedFetch = async (url: string, method: RestMethod) => {
+    console.log("calling url", url, "with method", method, "and token", token);
+
     const response = await fetch(url, {
       method: method,
       headers: { Authorization: `Bearer ${token}` },
@@ -20,15 +22,9 @@ const useAuthenticatedFetch = () => {
       return response;
     }
 
-    const refreshedToken = await refreshToken();
-    if (!refreshedToken) {
-      return response;
-    }
+    refreshToken();
 
-    return await fetch(url, {
-      method: method,
-      headers: { Authorization: `Bearer ${refreshedToken}` },
-    });
+    return response;
   };
 
   return token ? authenticatedFetch : undefined;

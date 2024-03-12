@@ -23,7 +23,7 @@ const MyPlaylistSuggestions = ({
   }
   const filteredPlaylists = searchTerm
     ? playlists?.filter((playlist) =>
-        playlist.name.toLowerCase().includes(searchTerm.toLowerCase())
+        playlist?.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : playlists;
 

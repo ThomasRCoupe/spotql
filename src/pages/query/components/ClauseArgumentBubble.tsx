@@ -19,14 +19,11 @@ const ClauseArgumentBubble = <TClause extends ClauseDraft>({
   onSelectedChange: handleSelectedChange,
   onConfirm: handleConfirm,
 }: ClauseArgumentBubbleProps<TClause>) => {
-  console.log("ClauseArgumentBubble", selected);
-
   if (!selected) {
     return (
       <Bubble
         variant="primary"
         onClick={() => {
-          console.log("setting selected to true");
           handleSelectedChange(true);
         }}
       >

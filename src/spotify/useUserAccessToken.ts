@@ -15,16 +15,12 @@ export const useUserAccessToken = () => {
     redirectToSpotifyUserAuth(clientId, redirectUrl);
   }
 
-  const {
-    data: token,
-    status,
-    refetch,
-  } = useQuery({
+  const { data: token, status } = useQuery({
     queryKey: ["spotifyUserAccessToken"],
     queryFn: () =>
       !storedToken && code
         ? fetchUserAccessToken(clientId, code, redirectUrl)
-        : undefined,
+        : Promise.resolve(undefined),
     enabled: !storedToken && !!code,
   });
 
@@ -34,9 +30,14 @@ export const useUserAccessToken = () => {
     });
   }
 
+  const refreshToken = () => {
+    Cookies.remove("spotifyUserAccessToken");
+    redirectToSpotifyUserAuth(clientId, redirectUrl);
+  };
+
   return {
     token: storedToken ?? token?.access_token,
-    refreshToken: refetch,
+    refreshToken,
     status: storedToken ? "success" : status,
   };
 };

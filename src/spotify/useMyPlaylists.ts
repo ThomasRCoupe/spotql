@@ -9,13 +9,13 @@ export const useMyPlaylists = () => {
   const { data, fetchNextPage, hasNextPage, isFetching, status } =
     useInfiniteQuery({
       queryKey: ["myPlaylists"],
-      queryFn: authenticatedFetch
-        ? ({ pageParam }) =>
-            fetchMyPlaylists(authenticatedFetch, 50, pageParam * 50)
-        : undefined,
+      queryFn: ({ pageParam }) =>
+        authenticatedFetch
+          ? fetchMyPlaylists(authenticatedFetch, 50, pageParam * 50)
+          : Promise.resolve([]),
       initialPageParam: 0,
       getNextPageParam: (lastPage, pages) =>
-        lastPage.length === 50 ? pages.length + 1 : undefined,
+        lastPage?.length === 50 ? pages.length + 1 : undefined,
     });
 
   useEffect(() => {
