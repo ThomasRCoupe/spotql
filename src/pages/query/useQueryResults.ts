@@ -1,6 +1,4 @@
 import { Track } from "../../spotify/types";
-import { useCurrentUser } from "../../spotify/useCurrentUser";
-import { useSpotifyUserAccessToken } from "../../spotify/useSpotifyUserAccessToken";
 import { executeGetAll } from "./clauses/selectors/get-all/execution";
 import { executeGetTop } from "./clauses/selectors/get-top/execution";
 import { Query, Selector } from "./types";
@@ -16,13 +14,7 @@ const executeSelector = (selector: Selector, tracks: Track[]) => {
 };
 
 const useQueryResults = (query: Query) => {
-  const { token } = useSpotifyUserAccessToken();
-  const { user } = useCurrentUser();
-  const { tracks, isLoading } = useSourceTracks(
-    token,
-    user?.country,
-    query?.sources
-  );
+  const { tracks, isLoading } = useSourceTracks(query?.sources);
 
   const selectedTracks = executeSelector(query.selector, tracks);
 

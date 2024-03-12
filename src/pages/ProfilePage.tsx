@@ -1,12 +1,9 @@
 import { useCurrentUser } from "../spotify/useCurrentUser";
 import { Avatar } from "../design-system/Avatar";
-import { Button } from "../design-system/Button";
-import { useNavigate } from "react-router-dom";
 import Panel from "../design-system/Panel";
 
 export const ProfilePage = () => {
-  const { user: profile, status, clearToken } = useCurrentUser();
-  const navigate = useNavigate();
+  const { user: profile, status } = useCurrentUser();
 
   if (status === "pending") {
     return <h1>Loading...</h1>;
@@ -15,11 +12,6 @@ export const ProfilePage = () => {
   if (status === "error" || !profile) {
     return <h1>Fetching Profile Failed!</h1>;
   }
-
-  const handleSignOut = () => {
-    clearToken();
-    navigate("/");
-  };
 
   return (
     <Panel>
@@ -40,11 +32,6 @@ export const ProfilePage = () => {
               Logged in as <span id="displayName">{profile.display_name}</span>
             </h2>
           </div>
-        </section>
-        <section className="flex gap-2">
-          <Button variant="primary" onClick={handleSignOut}>
-            Sign Out
-          </Button>
         </section>
       </div>
     </Panel>

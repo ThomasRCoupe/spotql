@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { AccessToken } from "./types";
 import Cookies from "js-cookie";
 
-export const useSpotifyUserAccessToken = () => {
-  const token = Cookies.get("spotifyUserAccessToken");
+export const useUserAccessToken = () => {
+  const storedToken = Cookies.get("spotifyUserAccessToken");
 
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const params = new URLSearchParams(window.location.search);
@@ -11,33 +11,33 @@ export const useSpotifyUserAccessToken = () => {
 
   const redirectUrl = window.location.href.split("?")[0];
 
-  if (!token && !code) {
+  if (!storedToken && !code) {
     redirectToSpotifyUserAuth(clientId, redirectUrl);
   }
 
-  const { data, status } = useQuery({
+  const {
+    data: token,
+    status,
+    refetch,
+  } = useQuery({
     queryKey: ["spotifyUserAccessToken"],
     queryFn: () =>
-      !token && code
+      !storedToken && code
         ? fetchUserAccessToken(clientId, code, redirectUrl)
         : undefined,
-    enabled: !token && !!code,
+    enabled: !storedToken && !!code,
   });
 
-  if (status === "success" && data) {
-    Cookies.set("spotifyUserAccessToken", data.access_token, {
-      expires: data.expires_in,
+  if (status === "success" && token) {
+    Cookies.set("spotifyUserAccessToken", token.access_token, {
+      expires: token.expires_in,
     });
   }
 
-  const clearToken = () => {
-    Cookies.remove("spotifyUserAccessToken");
-  };
-
   return {
-    token: token ?? data?.access_token,
-    clearToken,
-    status: token ? "success" : status,
+    token: storedToken ?? token?.access_token,
+    refreshToken: refetch,
+    status: storedToken ? "success" : status,
   };
 };
 
