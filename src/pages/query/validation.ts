@@ -22,7 +22,7 @@ export const isQueryDraftValid = (query: QueryDraft) =>
   query.selector &&
   isSelectorValid(query.selector) &&
   query.sources.length > 0 &&
-  query.sources.map((source) => isSourceValid(source));
+  query.sources.every((source) => isSourceValid(source));
 
 export const convertDraftToQuery = (query: QueryDraft) => {
   if (!isQueryDraftValid(query)) {
