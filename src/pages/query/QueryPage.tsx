@@ -12,8 +12,6 @@ const QueryPage = () => {
   const [queryToExecute, setQueryToExecute] = useState<Query>();
   const isDraftValid = isQueryDraftValid(draftQuery);
 
-  console.log("query to execute", queryToExecute);
-
   return (
     <>
       <Panel>
@@ -27,7 +25,6 @@ const QueryPage = () => {
         variant="primary"
         disabled={!isDraftValid}
         onClick={() => {
-          console.log("setting query to execute", draftQuery);
           setQueryToExecute(convertDraftToQuery(draftQuery));
         }}
       >

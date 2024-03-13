@@ -20,6 +20,11 @@ export interface SimplifiedPlaylist {
   id: string;
   name: string;
   href: string;
+  total: number;
+}
+
+export interface Playlist extends SimplifiedPlaylist {
+  images: Image[];
 }
 
 export interface Artist {
@@ -27,7 +32,7 @@ export interface Artist {
   name: string;
 }
 
-export interface AlbumImage {
+export interface Image {
   url: string;
   width: number;
   height: number;
@@ -36,11 +41,12 @@ export interface AlbumImage {
 export interface Album {
   id: string;
   name: string;
-  images: AlbumImage[];
+  images: Image[];
 }
 
 export interface Track {
   id: string;
+  uri: string;
   name: string;
   artists: Artist[];
   album: Album;

@@ -20,7 +20,7 @@ export const ClauseInput = ({
   onConfirm: handleConfirm,
   width,
 }: ClauseInputProps) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (selected) {
