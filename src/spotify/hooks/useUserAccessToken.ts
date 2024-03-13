@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { AccessToken } from "./types";
+import { AccessToken } from "../types";
 import Cookies from "js-cookie";
+import { getCurrentDateAfterSeconds } from "../../utils/dates";
 
 export const useUserAccessToken = () => {
   const storedToken = Cookies.get("spotifyUserAccessToken");
@@ -26,7 +27,7 @@ export const useUserAccessToken = () => {
 
   if (status === "success" && token) {
     Cookies.set("spotifyUserAccessToken", token.access_token, {
-      expires: token.expires_in,
+      expires: getCurrentDateAfterSeconds(token.expires_in - 60),
     });
   }
 

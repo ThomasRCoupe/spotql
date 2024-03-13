@@ -1,5 +1,5 @@
 import { SimplifiedPlaylist, Track } from "./types";
-import { AuthenticatedFetch } from "./useAuthenticatedFetch";
+import { AuthenticatedFetch } from "./hooks/useAuthenticatedFetch";
 
 export const fetchMyPlaylists = async (
   authenticatedFetch: AuthenticatedFetch,

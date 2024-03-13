@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { SimplifiedPlaylist } from "../../../../../spotify/types";
 import SuggestionList from "../../../../../design-system/SuggestionList";
-import { useMyPlaylists } from "../../../../../spotify/useMyPlaylists";
+import { useMyPlaylists } from "../../../../../spotify/hooks/useMyPlaylists";
 
 interface MyPlaylistSuggestionsProps {
   searchTerm: string | undefined;

@@ -8,6 +8,8 @@ import { convertDraftToQuery, isQueryDraftValid } from "./validation";
 import QueryResults from "./QueryResults";
 
 const QueryPage = () => {
+  console.log("loaded query page");
+
   const [draftQuery, dispatch] = useQueryDraftReducer();
   const [query, setQuery] = useState<Query>();
   const isDraftValid = isQueryDraftValid(draftQuery);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { FetchState } from "../types";
+import { FetchState } from "../../types";
 
 export const useSpotifyAccessToken = () => {
   const [status, setStatus] = useState<FetchState>("fetching");

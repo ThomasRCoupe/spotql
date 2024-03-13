@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import useAuthenticatedFetch from "./useAuthenticatedFetch";
-import { fetchMyPlaylists } from "./api";
+import { fetchMyPlaylists } from "../api";
 
 export const useMyPlaylists = () => {
   const authenticatedFetch = useAuthenticatedFetch();

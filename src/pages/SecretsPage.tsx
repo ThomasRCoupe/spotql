@@ -1,4 +1,4 @@
-import { useSpotifyAccessToken } from "../spotify/useSpotifyAccessToken";
+import { useSpotifyAccessToken } from "../spotify/hooks/useSpotifyAccessToken";
 
 export const SecretPage = () => {
   const { token, status } = useSpotifyAccessToken();

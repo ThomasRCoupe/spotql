@@ -2,10 +2,10 @@ import { useQueries } from "@tanstack/react-query";
 import { Source } from "./types";
 import { fetchMyPlaylistTracks } from "./clauses/sources/my-playlist/execution";
 import { Track } from "../../spotify/types";
-import { useCurrentUser } from "../../spotify/useCurrentUser";
+import { useCurrentUser } from "../../spotify/hooks/useCurrentUser";
 import useAuthenticatedFetch, {
   AuthenticatedFetch,
-} from "../../spotify/useAuthenticatedFetch";
+} from "../../spotify/hooks/useAuthenticatedFetch";
 
 const fetchSourceTracks = async (
   authenticatedFetch: AuthenticatedFetch,

@@ -1,5 +1,5 @@
 import { fetchPlaylistTracks } from "../../../../../spotify/api";
-import { AuthenticatedFetch } from "../../../../../spotify/useAuthenticatedFetch";
+import { AuthenticatedFetch } from "../../../../../spotify/hooks/useAuthenticatedFetch";
 import { MyPlaylistSource } from "./types";
 
 export const fetchMyPlaylistTracks = async (

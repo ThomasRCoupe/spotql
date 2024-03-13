@@ -1,5 +1,5 @@
 import Panel from "../design-system/Panel";
-import { useMyPlaylists } from "../spotify/useMyPlaylists";
+import { useMyPlaylists } from "../spotify/hooks/useMyPlaylists";
 
 export const PlaylistsPage = () => {
   const { playlists, status } = useMyPlaylists();

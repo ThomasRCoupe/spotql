@@ -1,4 +1,4 @@
-import { useCurrentUser } from "../spotify/useCurrentUser";
+import { useCurrentUser } from "../spotify/hooks/useCurrentUser";
 import { Avatar } from "../design-system/Avatar";
 import Panel from "../design-system/Panel";
 
