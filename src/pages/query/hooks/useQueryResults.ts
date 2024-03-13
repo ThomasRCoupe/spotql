@@ -1,7 +1,7 @@
-import { Track } from "../../spotify/types";
-import { executeGetAll } from "./clauses/selectors/get-all/execution";
-import { executeGetTop } from "./clauses/selectors/get-top/execution";
-import { Query, Selector } from "./types";
+import { Track } from "../../../spotify/types";
+import { executeGetAll } from "../clauses/selectors/get-all/execution";
+import { executeGetTop } from "../clauses/selectors/get-top/execution";
+import { Query, Selector } from "../types";
 import useSourceTracks from "./useSourceTracks";
 
 const executeSelector = (selector: Selector, tracks: Track[]) => {

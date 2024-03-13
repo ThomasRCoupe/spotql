@@ -2,7 +2,7 @@ import { QueryDraft, SelectorDraft, SourceDraft } from "./types";
 import SelectorBubble from "./clauses/selectors/SelectorBubble";
 import SourceBubble from "./clauses/sources/SourceBubble";
 import PlaceholderBubble from "./components/PlaceholderBubble";
-import { QueryAction } from "./useQueryReducer";
+import { QueryAction } from "./hooks/useQueryReducer";
 
 interface QueryBuilderProps {
   query: QueryDraft;

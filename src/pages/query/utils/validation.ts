@@ -1,6 +1,6 @@
-import { isGetTopSelectorValid } from "./clauses/selectors/get-top/validation";
-import { isMyPlaylistSourceValid } from "./clauses/sources/my-playlist/validation";
-import { Query, QueryDraft, SelectorDraft, SourceDraft } from "./types";
+import { isGetTopSelectorValid } from "../clauses/selectors/get-top/validation";
+import { isMyPlaylistSourceValid } from "../clauses/sources/my-playlist/validation";
+import { Query, QueryDraft, SelectorDraft, SourceDraft } from "../types";
 
 const isSelectorValid = (selector: SelectorDraft) => {
   switch (selector.variant) {

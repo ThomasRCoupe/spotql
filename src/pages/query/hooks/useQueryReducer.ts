@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { ClauseDraft, QueryDraft, SelectorDraft, SourceDraft } from "./types";
+import { ClauseDraft, QueryDraft, SelectorDraft, SourceDraft } from "../types";
 
 interface SelectorChangeAction {
   type: "selector-change";

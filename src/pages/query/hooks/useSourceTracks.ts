@@ -1,11 +1,20 @@
 import { useQueries } from "@tanstack/react-query";
-import { Source } from "./types";
-import { fetchMyPlaylistTracks } from "./clauses/sources/my-playlist/execution";
-import { Track } from "../../spotify/types";
-import { useCurrentUser } from "../../spotify/hooks/useCurrentUser";
+import { Source } from "../types";
+import { fetchMyPlaylistTracks } from "../clauses/sources/my-playlist/execution";
+import { Track } from "../../../spotify/types";
+import { useCurrentUser } from "../../../spotify/hooks/useCurrentUser";
 import useAuthenticatedFetch, {
   AuthenticatedFetch,
-} from "../../spotify/hooks/useAuthenticatedFetch";
+} from "../../../spotify/hooks/useAuthenticatedFetch";
+
+const getQueryKey = (source: Source, index: number) => {
+  const baseKey = ["source-tracks", index, source.variant];
+
+  switch (source.variant) {
+    case "my-playlist":
+      return [...baseKey, source.playlistId];
+  }
+};
 
 const fetchSourceTracks = async (
   authenticatedFetch: AuthenticatedFetch,
@@ -26,7 +35,7 @@ const useSourceTracks = (sources: Source[] | undefined) => {
     queries:
       sources && authenticatedFetch && user?.country
         ? sources.map((source, index) => ({
-            queryKey: ["sourceTracks", index],
+            queryKey: getQueryKey(source, index),
             queryFn: () =>
               fetchSourceTracks(authenticatedFetch, user.country, source),
           }))

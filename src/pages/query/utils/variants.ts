@@ -1,4 +1,4 @@
-import { ClauseType, SelectorDraft, SourceDraft } from "./types";
+import { ClauseType, SelectorDraft, SourceDraft } from "../types";
 
 const getSelectorVariants = (): SelectorDraft[] => [
   {

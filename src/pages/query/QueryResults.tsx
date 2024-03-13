@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Query } from "./types";
-import useQueryResults from "./useQueryResults";
+import useQueryResults from "./hooks/useQueryResults";
 import Panel from "../../design-system/Panel";
 import DialogButton from "../../design-system/DialogButton";
 

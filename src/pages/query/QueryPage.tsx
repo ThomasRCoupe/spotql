@@ -3,14 +3,16 @@ import Button from "../../design-system/Button";
 import Panel from "../../design-system/Panel";
 import QueryBuilder from "./QueryBuilder";
 import { Query } from "./types";
-import { useQueryDraftReducer } from "./useQueryReducer";
-import { convertDraftToQuery, isQueryDraftValid } from "./validation";
+import { useQueryDraftReducer } from "./hooks/useQueryReducer";
+import { convertDraftToQuery, isQueryDraftValid } from "./utils/validation";
 import QueryResults from "./QueryResults";
 
 const QueryPage = () => {
   const [draftQuery, dispatch] = useQueryDraftReducer();
-  const [query, setQuery] = useState<Query>();
+  const [queryToExecute, setQueryToExecute] = useState<Query>();
   const isDraftValid = isQueryDraftValid(draftQuery);
+
+  console.log("query to execute", queryToExecute);
 
   return (
     <>
@@ -25,12 +27,13 @@ const QueryPage = () => {
         variant="primary"
         disabled={!isDraftValid}
         onClick={() => {
-          setQuery(convertDraftToQuery(draftQuery));
+          console.log("setting query to execute", draftQuery);
+          setQueryToExecute(convertDraftToQuery(draftQuery));
         }}
       >
         Run
       </Button>
-      {query && <QueryResults query={query} />}
+      {queryToExecute && <QueryResults query={queryToExecute} />}
     </>
   );
 };

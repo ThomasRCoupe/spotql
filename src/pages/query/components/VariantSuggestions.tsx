@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { ClauseDraft, ClauseType } from "../types";
-import { getVariants } from "../variants";
+import { getVariants } from "../utils/variants";
 import SuggestionList from "../../../design-system/SuggestionList";
 
 interface VariantSuggestionsProps {

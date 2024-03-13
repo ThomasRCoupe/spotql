@@ -11,8 +11,6 @@ const useAuthenticatedFetch = () => {
   const { token, refreshToken } = useUserAccessToken();
 
   const authenticatedFetch = async (url: string, method: RestMethod) => {
-    console.log("calling url", url, "with method", method, "and token", token);
-
     const response = await fetch(url, {
       method: method,
       headers: { Authorization: `Bearer ${token}` },
