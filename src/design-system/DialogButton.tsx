@@ -16,7 +16,7 @@ interface DialogProps {
   children: React.ReactNode;
 }
 
-const Dialog = ({ buttonText, children }: DialogProps) => {
+const DialogButton = ({ buttonText, children }: DialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { refs, context } = useFloating({
@@ -46,9 +46,16 @@ const Dialog = ({ buttonText, children }: DialogProps) => {
       </Button>
       <FloatingPortal>
         {isOpen && (
-          <FloatingOverlay className="Dialog-overlay" lockScroll>
+          <FloatingOverlay
+            className="grid place-items-center bg-black/80"
+            lockScroll
+          >
             <FloatingFocusManager context={context}>
-              <div ref={refs.setFloating} {...getFloatingProps()}>
+              <div
+                className="p-4 rounded-xl bg-dark-grey"
+                ref={refs.setFloating}
+                {...getFloatingProps()}
+              >
                 {children}
               </div>
             </FloatingFocusManager>
@@ -59,4 +66,4 @@ const Dialog = ({ buttonText, children }: DialogProps) => {
   );
 };
 
-export default Dialog;
+export default DialogButton;

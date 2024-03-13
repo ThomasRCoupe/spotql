@@ -8,8 +8,6 @@ import { convertDraftToQuery, isQueryDraftValid } from "./validation";
 import QueryResults from "./QueryResults";
 
 const QueryPage = () => {
-  console.log("loaded query page");
-
   const [draftQuery, dispatch] = useQueryDraftReducer();
   const [query, setQuery] = useState<Query>();
   const isDraftValid = isQueryDraftValid(draftQuery);
@@ -17,30 +15,22 @@ const QueryPage = () => {
   return (
     <>
       <Panel>
-        <div className="w-full h-full flex flex-col gap-2">
-          <section className="flex flex-col gap-2">
-            <h1 className="text-3xl font-bold">SpotQL</h1>
-            <h2 className="text-light-grey">Query Editor</h2>
-          </section>
-          <section className="flex justify-between">
-            <QueryBuilder query={draftQuery} dispatch={dispatch} />
-            <Button
-              variant="primary"
-              disabled={!isDraftValid}
-              onClick={() => {
-                setQuery(convertDraftToQuery(draftQuery));
-              }}
-            >
-              Run
-            </Button>
-          </section>
+        <div className="w-full h-full p-4 flex flex-col gap-2">
+          <h1 className="text-3xl font-bold">SpotQL</h1>
+          <h2 className="text-light-grey">Query Builder</h2>
+          <QueryBuilder query={draftQuery} dispatch={dispatch} />
         </div>
       </Panel>
-      {query && (
-        <Panel>
-          <QueryResults query={query} />
-        </Panel>
-      )}
+      <Button
+        variant="primary"
+        disabled={!isDraftValid}
+        onClick={() => {
+          setQuery(convertDraftToQuery(draftQuery));
+        }}
+      >
+        Run
+      </Button>
+      {query && <QueryResults query={query} />}
     </>
   );
 };

@@ -33,7 +33,8 @@ const useSourceTracks = (sources: Source[] | undefined) => {
         : [],
   });
 
-  const isLoading = sourceQueries.some((query) => query.isLoading);
+  const isLoading =
+    sourceQueries.some((query) => query.isLoading) || sourceQueries.length == 0;
   const hasError = sourceQueries.some((query) => query.error);
   const results = sourceQueries.map((query) => query.data);
   const tracks = results.reduce<Track[]>((a, c) => [...a, ...(c ?? [])], []);

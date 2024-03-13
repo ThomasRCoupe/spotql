@@ -17,7 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       onClick={handleClick}
       className={clsx(
-        "h-8 px-4 flex items-center rounded-full",
+        "h-8 min-w-24 px-4 flex items-center justify-center rounded-full",
         variant === "primary" ? "bg-spotify-green text-black" : "bg-white/5",
         disabled ? "cursor-not-allowed" : "cursor-pointer"
       )}
