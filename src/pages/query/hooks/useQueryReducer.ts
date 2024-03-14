@@ -1,9 +1,20 @@
 import { useReducer } from "react";
-import { ClauseDraft, QueryDraft, SelectorDraft, SourceDraft } from "../types";
+import {
+  ClauseDraft,
+  OrdererDraft,
+  QueryDraft,
+  SelectorDraft,
+  SourceDraft,
+} from "../types";
 
 interface SelectorChangeAction {
   type: "selector-change";
   selector: SelectorDraft;
+}
+
+interface OrdererChangeAction {
+  type: "orderer-change";
+  orderer: OrdererDraft;
 }
 
 interface SourceChangeAction {
@@ -18,6 +29,7 @@ interface SourceAddAction {
 
 export type QueryAction =
   | SelectorChangeAction
+  | OrdererChangeAction
   | SourceChangeAction
   | SourceAddAction;
 
@@ -42,6 +54,11 @@ const reduceQueryDraft = (
       return {
         ...(action.selector.selected ? deselectQuery(state) : state),
         ...{ selector: action.selector },
+      };
+    case "orderer-change":
+      return {
+        ...(action.orderer.selected ? deselectQuery(state) : state),
+        ...{ orderer: action.orderer },
       };
     case "source-add":
       return {

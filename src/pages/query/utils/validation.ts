@@ -1,6 +1,12 @@
 import { isGetTopSelectorValid } from "../clauses/selectors/get-top/validation";
 import { isMyPlaylistSourceValid } from "../clauses/sources/my-playlist/validation";
-import { Query, QueryDraft, SelectorDraft, SourceDraft } from "../types";
+import {
+  OrdererDraft,
+  Query,
+  QueryDraft,
+  SelectorDraft,
+  SourceDraft,
+} from "../types";
 
 const isSelectorValid = (selector: SelectorDraft) => {
   switch (selector.variant) {
@@ -8,6 +14,13 @@ const isSelectorValid = (selector: SelectorDraft) => {
       return true;
     case "get-top":
       return isGetTopSelectorValid(selector);
+  }
+};
+
+const isOrdererValid = (orderer: OrdererDraft) => {
+  switch (orderer.variant) {
+    case "shuffled":
+      return true;
   }
 };
 
@@ -21,6 +34,7 @@ const isSourceValid = (source: SourceDraft) => {
 export const isQueryDraftValid = (query: QueryDraft) =>
   query.selector &&
   isSelectorValid(query.selector) &&
+  (!query.orderer || isOrdererValid(query.orderer)) &&
   query.sources.length > 0 &&
   query.sources.every((source) => isSourceValid(source));
 

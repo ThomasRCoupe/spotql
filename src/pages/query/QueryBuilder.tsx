@@ -1,8 +1,9 @@
-import { QueryDraft, SelectorDraft, SourceDraft } from "./types";
+import { OrdererDraft, QueryDraft, SelectorDraft, SourceDraft } from "./types";
 import SelectorBubble from "./clauses/selectors/SelectorBubble";
 import SourceBubble from "./clauses/sources/SourceBubble";
 import PlaceholderBubble from "./components/PlaceholderBubble";
 import { QueryAction } from "./hooks/useQueryReducer";
+import OrdererBubble from "./clauses/orderers/OrdererBubble";
 
 interface QueryBuilderProps {
   query: QueryDraft;
@@ -26,6 +27,22 @@ const QueryBuilder = ({ query, dispatch }: QueryBuilderProps) => {
             dispatch({
               type: "selector-change",
               selector: selector as SelectorDraft,
+            })
+          }
+        />
+      )}
+      {query.orderer ? (
+        <OrdererBubble
+          orderer={query.orderer}
+          onChange={(orderer) => dispatch({ type: "orderer-change", orderer })}
+        />
+      ) : (
+        <PlaceholderBubble
+          type="orderer"
+          onChange={(orderer) =>
+            dispatch({
+              type: "orderer-change",
+              orderer: orderer as OrdererDraft,
             })
           }
         />
