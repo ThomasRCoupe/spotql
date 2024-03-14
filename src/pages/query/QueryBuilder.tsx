@@ -30,24 +30,21 @@ const QueryBuilder = ({ query, dispatch }: QueryBuilderProps) => {
           }
         />
       )}
-      {query.sources.length ? (
-        query.sources.map((source, index) => (
-          <SourceBubble
-            key={index}
-            source={source}
-            onChange={(newSource) =>
-              dispatch({ type: "source-change", source: newSource, index })
-            }
-          />
-        ))
-      ) : (
-        <PlaceholderBubble
-          type="source"
-          onChange={(source) =>
-            dispatch({ type: "source-add", source: source as SourceDraft })
+      {query.sources.map((source, index) => (
+        <SourceBubble
+          key={index}
+          source={source}
+          onChange={(newSource) =>
+            dispatch({ type: "source-change", source: newSource, index })
           }
         />
-      )}
+      ))}
+      <PlaceholderBubble
+        type="source"
+        onChange={(source) =>
+          dispatch({ type: "source-add", source: source as SourceDraft })
+        }
+      />
     </div>
   );
 };

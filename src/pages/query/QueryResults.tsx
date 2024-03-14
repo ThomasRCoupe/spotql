@@ -40,12 +40,14 @@ const QueryResults = ({ query }: QueryResultsProps) => {
                 <div className="w-5 text-light-grey text-right">
                   {index + 1}
                 </div>
-                <img
-                  className="rounded-md"
-                  height={36}
-                  width={36}
-                  src={track.album.images[0].url}
-                />
+                {track.album.images[0] && (
+                  <img
+                    className="rounded-md"
+                    height={36}
+                    width={36}
+                    src={track.album.images[0].url}
+                  />
+                )}
                 <div className="flex flex-col">
                   <div>{track.name}</div>
                   <div className="text-light-grey text-sm">
