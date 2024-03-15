@@ -1,7 +1,6 @@
 import { GetTopSelectorDraft } from "./types";
 import { SelectorDraft } from "../../../types";
-import ClauseBubble from "../../../components/ClauseBubble";
-import { ClauseArgument } from "../../../components/types";
+import ClauseBubble, { ClauseArgument } from "../../../components/ClauseBubble";
 import { ClauseNumberInput } from "../../../../../design-system/ClauseNumberInput";
 
 interface GetTopBubbleProps {
@@ -27,6 +26,8 @@ const amountArg: ClauseArgument<GetTopSelectorDraft> = {
       onConfirm={handleConfirm}
     />
   ),
+  clear: (clause, handleChange) =>
+    handleChange({ ...clause, amount: undefined }),
 };
 
 const GetTopBubble = ({

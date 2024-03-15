@@ -23,13 +23,18 @@ export const Bubble = ({
   variant,
   onClick: handleClick,
   children,
-}: BubbleProps) => (
-  <div
-    className={clsx(
-      "h-8 px-4 flex items-center gap-1 rounded-full",
-      getVariantClasses(variant)
-    )}
-  >
-    {handleClick ? <button onClick={handleClick}>{children}</button> : children}
-  </div>
-);
+}: BubbleProps) =>
+  handleClick ? (
+    <div>
+      <button
+        className={clsx("h-8 px-4 rounded-full", getVariantClasses(variant))}
+        onClick={handleClick}
+      >
+        {children}
+      </button>
+    </div>
+  ) : (
+    <div className={clsx("h-8 px-4 rounded-full", getVariantClasses(variant))}>
+      {children}
+    </div>
+  );

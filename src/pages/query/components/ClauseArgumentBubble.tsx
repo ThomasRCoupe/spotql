@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Bubble } from "../../../design-system/Bubble";
 import { ClauseDraft } from "../types";
 import { ClauseArgument } from "./ClauseBubble";
@@ -19,6 +20,12 @@ const ClauseArgumentBubble = <TClause extends ClauseDraft>({
   onSelectedChange: handleSelectedChange,
   onConfirm: handleConfirm,
 }: ClauseArgumentBubbleProps<TClause>) => {
+  useEffect(() => {
+    if (selected) {
+      arg.clear(clause, handleChange);
+    }
+  }, [selected]);
+
   if (!selected) {
     return (
       <Bubble

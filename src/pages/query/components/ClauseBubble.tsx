@@ -16,6 +16,7 @@ export interface ClauseArgument<TClause extends ClauseDraft> {
   name: string;
   renderText: (clause: TClause) => string | undefined;
   renderInput: (params: RenderArgumentInputParams<TClause>) => JSX.Element;
+  clear: (clause: TClause, onChange: (clause: TClause) => void) => void;
 }
 
 interface ClauseBubbleProps<TClause extends ClauseBubble> {

@@ -1,7 +1,6 @@
 import { MyPlaylistSourceDraft } from "./types";
 import { SourceDraft } from "../../../types";
-import ClauseBubble from "../../../components/ClauseBubble";
-import { ClauseArgument } from "../../../components/types";
+import ClauseBubble, { ClauseArgument } from "../../../components/ClauseBubble";
 import MyPlaylistInput from "./MyPlaylistInput";
 
 interface MyPlaylistBubbleProps {
@@ -28,6 +27,8 @@ const playlistNameArg: ClauseArgument<MyPlaylistSourceDraft> = {
       onConfirm={handleConfirm}
     />
   ),
+  clear: (clause, handleChange) =>
+    handleChange({ ...clause, playlistId: undefined, playlistName: undefined }),
 };
 
 const MyPlaylistBubble = ({
