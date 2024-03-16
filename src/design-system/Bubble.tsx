@@ -34,7 +34,12 @@ export const Bubble = ({
       </button>
     </div>
   ) : (
-    <div className={clsx("h-8 px-4 rounded-full", getVariantClasses(variant))}>
+    <div
+      className={clsx(
+        "h-8 px-4 rounded-full flex items-center gap-2",
+        getVariantClasses(variant)
+      )}
+    >
       {children}
     </div>
   );

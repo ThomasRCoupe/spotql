@@ -33,7 +33,7 @@ const WidthAdjustingInput = () => {
       type="text"
       value={inputValue}
       onInput={handleInput}
-      style={{ width: "100px", minWidth: "100px" }}
+      style={{ width: "10px", minWidth: "10px" }}
     />
   );
 };
