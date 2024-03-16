@@ -43,5 +43,9 @@ export const convertDraftToQuery = (query: QueryDraft) => {
     return undefined;
   }
 
-  return { ...query } as Query;
+  return {
+    ...(query.selector && { selector: { ...query.selector } }),
+    ...(query.orderer && { orderer: { ...query.orderer } }),
+    sources: [...query.sources.map((source) => ({ ...source }))],
+  } as Query;
 };

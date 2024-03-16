@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Track } from "../../../spotify/types";
 import { executeShuffled } from "../clauses/orderers/shuffled/execution";
 import { executeGetAll } from "../clauses/selectors/get-all/execution";
@@ -24,22 +24,29 @@ const executeOrderer = (orderer: Orderer, tracks: Track[]) => {
 
 const useQueryResults = () => {
   const [query, setQuery] = useState<Query>();
+  const [tracks, setTracks] = useState<Track[]>();
 
   const runQuery = (newQuery: Query) => {
     setQuery(newQuery);
   };
 
-  const { tracks, isLoading } = useSourceTracks(query?.sources);
+  const { tracks: sourceTracks, isLoading } = useSourceTracks(query?.sources);
 
-  const ordererTracks =
-    query?.orderer && tracks ? executeOrderer(query.orderer, tracks) : tracks;
+  useEffect(() => {
+    const orderedTracks =
+      query?.orderer && sourceTracks
+        ? executeOrderer(query.orderer, sourceTracks)
+        : tracks;
 
-  const selectedTracks =
-    query && ordererTracks
-      ? executeSelector(query.selector, ordererTracks)
-      : tracks;
+    const selectedTracks =
+      query && orderedTracks
+        ? executeSelector(query.selector, orderedTracks)
+        : orderedTracks;
 
-  return { tracks: selectedTracks, isLoading, runQuery };
+    setTracks(selectedTracks);
+  }, [query, isLoading]);
+
+  return { tracks, isLoading, runQuery };
 };
 
 export default useQueryResults;
