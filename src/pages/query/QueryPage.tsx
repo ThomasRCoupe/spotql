@@ -1,16 +1,25 @@
-import { useState } from "react";
 import Button from "../../design-system/Button";
 import Panel from "../../design-system/Panel";
 import QueryBuilder from "./QueryBuilder";
-import { Query } from "./types";
 import { useQueryDraftReducer } from "./hooks/useQueryReducer";
 import { convertDraftToQuery, isQueryDraftValid } from "./utils/validation";
 import QueryResults from "./QueryResults";
+import useQueryResults from "./hooks/useQueryResults";
 
 const QueryPage = () => {
   const [draftQuery, dispatch] = useQueryDraftReducer();
-  const [queryToExecute, setQueryToExecute] = useState<Query>();
   const isDraftValid = isQueryDraftValid(draftQuery);
+
+  const { tracks, isLoading, runQuery } = useQueryResults();
+
+  const handleRunQuery = () => {
+    const validQuery = convertDraftToQuery(draftQuery);
+    if (!validQuery) {
+      console.error("Query is not valid");
+      return;
+    }
+    runQuery(validQuery);
+  };
 
   return (
     <>
@@ -24,13 +33,11 @@ const QueryPage = () => {
       <Button
         variant="primary"
         disabled={!isDraftValid}
-        onClick={() => {
-          setQueryToExecute(convertDraftToQuery(draftQuery));
-        }}
+        onClick={handleRunQuery}
       >
         Run
       </Button>
-      {queryToExecute && <QueryResults query={queryToExecute} />}
+      {tracks && !isLoading && <QueryResults tracks={tracks} />}
     </>
   );
 };

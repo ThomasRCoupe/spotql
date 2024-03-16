@@ -43,5 +43,5 @@ export const convertDraftToQuery = (query: QueryDraft) => {
     return undefined;
   }
 
-  return query as Query;
+  return { ...query } as Query;
 };
