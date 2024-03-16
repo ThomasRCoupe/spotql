@@ -58,7 +58,7 @@ const useSourceTracks = (sources: Source[] | undefined) => {
   );
 
   return {
-    tracks: distinctTracks,
+    tracks: sources ? distinctTracks : undefined,
     isLoading,
     hasError,
   };

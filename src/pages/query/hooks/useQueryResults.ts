@@ -31,13 +31,13 @@ const useQueryResults = () => {
 
   const { tracks, isLoading } = useSourceTracks(query?.sources);
 
-  const ordererTracks = query?.orderer
-    ? executeOrderer(query.orderer, tracks)
-    : tracks;
+  const ordererTracks =
+    query?.orderer && tracks ? executeOrderer(query.orderer, tracks) : tracks;
 
-  const selectedTracks = query
-    ? executeSelector(query.selector, ordererTracks)
-    : tracks;
+  const selectedTracks =
+    query && ordererTracks
+      ? executeSelector(query.selector, ordererTracks)
+      : tracks;
 
   return { tracks: selectedTracks, isLoading, runQuery };
 };
