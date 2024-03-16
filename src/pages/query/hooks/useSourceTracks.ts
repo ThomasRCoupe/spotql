@@ -47,9 +47,18 @@ const useSourceTracks = (sources: Source[] | undefined) => {
   const hasError = sourceQueries.some((query) => query.error);
   const results = sourceQueries.map((query) => query.data);
   const tracks = results.reduce<Track[]>((a, c) => [...a, ...(c ?? [])], []);
+  const distinctTracks = Object.values(
+    tracks.reduce<Record<string, Track>>((a, c) => {
+      if (a[c.id]) {
+        return a;
+      }
+
+      return { ...a, [c.id]: c };
+    }, {})
+  );
 
   return {
-    tracks,
+    tracks: distinctTracks,
     isLoading,
     hasError,
   };
