@@ -40,6 +40,7 @@ const deselectClause = (clause: ClauseDraft): ClauseDraft => ({
 
 const deselectQuery = (query: QueryDraft): QueryDraft => ({
   selector: query.selector && (deselectClause(query.selector) as SelectorDraft),
+  orderer: query.orderer && (deselectClause(query.orderer) as OrdererDraft),
   sources: [
     ...query.sources.map((source) => deselectClause(source) as SourceDraft),
   ],

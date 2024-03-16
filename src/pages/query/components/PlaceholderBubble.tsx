@@ -20,7 +20,10 @@ const PlaceholderBubble = ({
       variant="inverted"
       selected={selected}
       onSelectedChange={(newSelected) => setSelected(newSelected)}
-      onChange={handleChange}
+      onChange={(clause: ClauseDraft) => {
+        handleChange(clause);
+        setSelected(false);
+      }}
     >
       {`${firstLetterToUpperCase(type)}...`}
     </VariantBubble>
