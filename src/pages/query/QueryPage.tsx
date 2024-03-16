@@ -37,7 +37,7 @@ const QueryPage = () => {
       >
         Run
       </Button>
-      {tracks && !isLoading && <QueryResults tracks={tracks} />}
+      {tracks && <QueryResults tracks={tracks} isLoading={isLoading} />}
     </>
   );
 };

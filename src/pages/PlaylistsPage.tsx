@@ -1,3 +1,4 @@
+import LoadingSpinner from "../design-system/LoadingSpinner";
 import Panel from "../design-system/Panel";
 import { useMyPlaylists } from "../spotify/hooks/useMyPlaylists";
 
@@ -22,7 +23,7 @@ export const PlaylistsPage = () => {
               <li>{playlist.name}</li>
             ))}
           </ul>
-          {status === "pending" && <h1>Loading...</h1>}
+          {status === "pending" && <LoadingSpinner size="large" />}
         </section>
       </div>
     </Panel>

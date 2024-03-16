@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { SimplifiedPlaylist } from "../../../../../spotify/types";
 import SuggestionList from "../../../../../design-system/SuggestionList";
 import { useMyPlaylists } from "../../../../../spotify/hooks/useMyPlaylists";
+import LoadingSpinner from "../../../../../design-system/LoadingSpinner";
 
 interface MyPlaylistSuggestionsProps {
   searchTerm: string | undefined;
@@ -32,7 +33,7 @@ const MyPlaylistSuggestions = ({
       {filteredPlaylists?.map((playlist, index) => (
         <button
           className={clsx(
-            "px-4 py-2 hover:bg-white/10 text-left max-w-64 truncate",
+            "w-64 px-4 py-2 hover:bg-white/10 text-left truncate",
             index === 0 && "rounded-t-2xl",
             index === filteredPlaylists.length - 1 && "pb-2 rounded-b-2xl"
           )}
@@ -43,7 +44,9 @@ const MyPlaylistSuggestions = ({
         </button>
       ))}
       {status === "pending" && (
-        <div className="px-4 py-2 rounded-2xl">Loading...</div>
+        <div className="w-64 flex justify-center px-4 py-2 rounded-2xl">
+          <LoadingSpinner size="small" />
+        </div>
       )}
     </SuggestionList>
   );
