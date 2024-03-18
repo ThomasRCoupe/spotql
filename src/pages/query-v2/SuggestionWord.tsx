@@ -42,6 +42,7 @@ const SuggestionWord = <TSuggestion extends Suggestion>({
     <>
       <Word>
         <button
+          className="h-8 px-4 rounded-full bg-transparent hover:bg-white/10"
           ref={refs.setReference}
           {...getReferenceProps}
           onClick={() => setOpen((current) => !current)}

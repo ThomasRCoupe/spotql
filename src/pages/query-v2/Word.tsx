@@ -5,9 +5,7 @@ interface WordProps {
 }
 
 const Word = ({ children }: WordProps) => (
-  <span className="h-8 w-auto flex items-center px-4 rounded-full bg-transparent hover:bg-white/10">
-    {children}
-  </span>
+  <span className="h-8 flex items-center">{children}</span>
 );
 
 export default Word;

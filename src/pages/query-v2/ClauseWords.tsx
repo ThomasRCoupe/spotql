@@ -1,15 +1,11 @@
 import SuggestionWord from "./SuggestionWord";
-import { ClauseDraft } from "./types";
-
-interface ClauseWordsProps {
-  clause: ClauseDraft;
-}
 
 const selectorSuggestions = ["Get All", "Get Random"];
+const sourceSuggestions = ["From My Playlist", "Get Random"];
 
 const ClauseWords = () => {
   return (
-    <>
+    <div className="flex">
       <SuggestionWord
         suggestions={selectorSuggestions.map((suggestion) => ({
           name: suggestion,
@@ -22,7 +18,19 @@ const ClauseWords = () => {
       >
         Get
       </SuggestionWord>
-    </>
+      <SuggestionWord
+        suggestions={sourceSuggestions.map((suggestion) => ({
+          name: suggestion,
+          key: suggestion,
+        }))}
+        renderSuggestion={(suggestion) => suggestion.name}
+        onSuggestionSelect={(suggestion) =>
+          console.log("suggestion selected", suggestion)
+        }
+      >
+        From
+      </SuggestionWord>
+    </div>
   );
 };
 
