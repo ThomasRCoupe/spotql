@@ -1,21 +1,16 @@
+import { GetAllTracksSelectorDraft } from "./builder/selectors/get-all-tracks/types";
+import { GetRandomTracksSelectorDraft } from "./builder/selectors/get-random-tracks/types";
+
 export type ClauseDraft = FromMyPlaylistDraft;
 
-export type SelectorDraft = GetAllSelectorDraft | GetRandomSelectorDraft;
-
-export interface GetAllSelectorDraft {
-  type: "get-all";
-  displayName: "Get All Tracks";
-}
-
-export interface GetRandomSelectorDraft {
-  type: "get-random";
-  displayName: "Get (Quantity: number) Random Tracks";
-  quantity?: number;
-}
+export type SelectorDraft =
+  | GetAllTracksSelectorDraft
+  | GetRandomTracksSelectorDraft;
 
 export interface FromMyPlaylistDraft {
-  selector: GetAllSelectorDraft | GetRandomSelectorDraft | undefined;
-  displayName: "From My Playlist (Playlist Name: string)";
+  type: "from-my-playlist";
+  selector?: GetAllTracksSelectorDraft | GetRandomTracksSelectorDraft;
+  displayName: "From My Playlist";
   playlistName?: string;
   playlistId?: string;
 }

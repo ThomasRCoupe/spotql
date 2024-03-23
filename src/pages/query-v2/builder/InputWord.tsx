@@ -62,7 +62,7 @@ const InputWord = ({
         onFocus={() => setFocussed(true)}
         onBlur={() => setFocussed(false)}
         placeholder={placeholder}
-        style={{ width: "32px", minWidth: "32px" }}
+        style={{ width: "16px", minWidth: "16px" }}
       />
     </Word>
   );
