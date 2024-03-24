@@ -45,6 +45,11 @@ const FromMyPlaylist = ({
       )
     : playlists;
 
+  const handlePlaylistClick = (id: string) => {
+    handlePlaylistIdChange(id);
+    setOpen(false);
+  };
+
   return (
     <>
       <Word>My</Word>
@@ -76,7 +81,7 @@ const FromMyPlaylist = ({
                     : "pb-1"
                 )}
                 key={playlist.id}
-                onClick={() => handlePlaylistIdChange(playlist.id)}
+                onClick={() => handlePlaylistClick(playlist.id)}
               >
                 {playlist.name}
               </button>

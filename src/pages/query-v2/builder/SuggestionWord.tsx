@@ -38,6 +38,11 @@ const SuggestionWord = <TSuggestion extends Suggestion>({
 
   const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
 
+  const handleSuggestionClick = (suggestion: TSuggestion) => {
+    handleSuggestionSelect(suggestion);
+    setOpen(false);
+  };
+
   return (
     <>
       <Word padding={false}>
@@ -68,7 +73,7 @@ const SuggestionWord = <TSuggestion extends Suggestion>({
                 index === suggestions.length - 1 ? "pb-2 rounded-b-2xl" : "pb-1"
               )}
               key={suggestion.key}
-              onClick={() => handleSuggestionSelect(suggestion)}
+              onClick={() => handleSuggestionClick(suggestion)}
             >
               {renderSuggestion(suggestion)}
             </button>
