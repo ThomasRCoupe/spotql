@@ -1,11 +1,15 @@
+import clsx from "clsx";
 import React from "react";
 
 interface WordProps {
+  padding?: boolean;
   children: React.ReactNode;
 }
 
-const Word = ({ children }: WordProps) => (
-  <span className="h-8 flex items-center">{children}</span>
+const Word = ({ padding = true, children }: WordProps) => (
+  <span className={clsx("h-8 flex items-center", padding && "px-2")}>
+    {children}
+  </span>
 );
 
 export default Word;

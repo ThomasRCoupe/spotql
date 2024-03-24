@@ -40,7 +40,7 @@ const SuggestionWord = <TSuggestion extends Suggestion>({
 
   return (
     <>
-      <Word>
+      <Word padding={false}>
         <button
           className={clsx(
             "h-8 px-2 rounded-full bg-transparent",

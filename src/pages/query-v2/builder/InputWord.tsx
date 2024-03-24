@@ -49,7 +49,7 @@ const InputWord = ({
   };
 
   return (
-    <Word>
+    <Word padding={false}>
       <input
         ref={inputRef}
         className={clsx(

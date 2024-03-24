@@ -2,6 +2,7 @@ import SuggestionWord from "../SuggestionWord";
 import Word from "../Word";
 import { SelectorDraft } from "../../types";
 import GetAllTracks from "./get-all-tracks/GetAllTracks";
+import GetRandomTracks from "./get-random-tracks/GetRandomTracks";
 
 interface SelectorWordsProps {
   selector: SelectorDraft | undefined;
@@ -9,12 +10,22 @@ interface SelectorWordsProps {
   suggestions: SelectorDraft[];
 }
 
-const renderSubclause = (selector: SelectorDraft) => {
+const renderSubclause = (
+  selector: SelectorDraft,
+  handleChange: (selector: SelectorDraft) => void
+) => {
   switch (selector.type) {
     case "get-all-tracks":
       return <GetAllTracks />;
     case "get-random-tracks":
-      return;
+      return (
+        <GetRandomTracks
+          quantity={selector.quantity}
+          onQuantityChange={(quantity) =>
+            handleChange({ ...selector, quantity })
+          }
+        />
+      );
   }
 };
 
@@ -50,7 +61,7 @@ const SelectorSubclause = ({
       >
         Get
       </SuggestionWord>
-      {renderSubclause(selector)}
+      {renderSubclause(selector, handleChange)}
       <Word>Tracks</Word>
     </>
   );
