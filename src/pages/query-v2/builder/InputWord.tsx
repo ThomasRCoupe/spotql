@@ -27,7 +27,7 @@ const InputWord = React.forwardRef<HTMLInputElement, InputWordProps>(
 
     useEffect(() => {
       adjustInputWidth(value);
-    }, [localRef]);
+    }, [localRef, value]);
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value: newValue } = event.target;
