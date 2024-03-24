@@ -4,7 +4,7 @@ import { SelectorDraft } from "../../types";
 import GetAllTracks from "./get-all-tracks/GetAllTracks";
 import GetRandomTracks from "./get-random-tracks/GetRandomTracks";
 
-interface SelectorWordsProps {
+interface SelectorSubclauseProps {
   selector: SelectorDraft | undefined;
   onChange: (selector: SelectorDraft) => void;
   suggestions: SelectorDraft[];
@@ -33,7 +33,7 @@ const SelectorSubclause = ({
   selector,
   onChange: handleChange,
   suggestions,
-}: SelectorWordsProps) => {
+}: SelectorSubclauseProps) => {
   if (!selector) {
     return (
       <SuggestionWord

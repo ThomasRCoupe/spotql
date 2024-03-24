@@ -23,6 +23,5 @@ const reduceQueryDraft = (
 
 export const useClauseReducer = () =>
   useReducer(reduceQueryDraft, {
-    type: "from-my-playlist",
-    displayName: "From My Playlist",
+    source: { type: "from-my-playlist", displayName: "From My Playlist" },
   });

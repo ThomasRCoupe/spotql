@@ -1,16 +1,14 @@
 import { GetAllTracksSelectorDraft } from "./builder/selectors/get-all-tracks/types";
 import { GetRandomTracksSelectorDraft } from "./builder/selectors/get-random-tracks/types";
-
-export type ClauseDraft = FromMyPlaylistDraft;
+import { FromMyPlaylistDraft } from "./builder/sources/from-my-playlist/types";
 
 export type SelectorDraft =
   | GetAllTracksSelectorDraft
   | GetRandomTracksSelectorDraft;
 
-export interface FromMyPlaylistDraft {
-  type: "from-my-playlist";
-  selector?: GetAllTracksSelectorDraft | GetRandomTracksSelectorDraft;
-  displayName: "From My Playlist";
-  playlistName?: string;
-  playlistId?: string;
+export type SourceDraft = FromMyPlaylistDraft;
+
+export interface ClauseDraft {
+  source: SourceDraft;
+  selector?: SelectorDraft;
 }
