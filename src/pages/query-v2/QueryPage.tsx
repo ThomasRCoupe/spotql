@@ -16,6 +16,9 @@ const QueryPageV2 = () => {
             onSelectorChange={(selector) =>
               dispatch({ type: "selector-change", selector })
             }
+            onSourceChange={(source) =>
+              dispatch({ type: "source-change", source })
+            }
           />
         </div>
       </Panel>

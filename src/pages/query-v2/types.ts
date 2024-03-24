@@ -9,6 +9,6 @@ export type SelectorDraft =
 export type SourceDraft = FromMyPlaylistDraft;
 
 export interface ClauseDraft {
-  source: SourceDraft;
+  source?: SourceDraft;
   selector?: SelectorDraft;
 }

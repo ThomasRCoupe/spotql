@@ -1,12 +1,17 @@
 import { useReducer } from "react";
-import { ClauseDraft, SelectorDraft } from "../../types";
+import { ClauseDraft, SelectorDraft, SourceDraft } from "../../types";
 
 interface SelectorChangeAction {
   type: "selector-change";
   selector: SelectorDraft;
 }
 
-export type QueryAction = SelectorChangeAction;
+interface SourceChangeAction {
+  type: "source-change";
+  source: SourceDraft;
+}
+
+export type QueryAction = SelectorChangeAction | SourceChangeAction;
 
 const reduceQueryDraft = (
   state: ClauseDraft,
@@ -18,10 +23,12 @@ const reduceQueryDraft = (
         ...state,
         ...{ selector: action.selector },
       };
+    case "source-change":
+      return {
+        ...state,
+        ...{ source: action.source },
+      };
   }
 };
 
-export const useClauseReducer = () =>
-  useReducer(reduceQueryDraft, {
-    source: { type: "from-my-playlist", displayName: "From My Playlist" },
-  });
+export const useClauseReducer = () => useReducer(reduceQueryDraft, {});

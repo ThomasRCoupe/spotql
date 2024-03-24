@@ -10,6 +10,7 @@ import { useMyPlaylists } from "../../../../../spotify/hooks/useMyPlaylists";
 import clsx from "clsx";
 import LoadingSpinner from "../../../../../design-system/LoadingSpinner";
 import Word from "../../Word";
+import { SimplifiedPlaylist } from "../../../../../spotify/types";
 
 interface FromMyPlaylistProps {
   onPlaylistIdChange: (quantity: string | undefined) => void;
@@ -45,8 +46,9 @@ const FromMyPlaylist = ({
       )
     : playlists;
 
-  const handlePlaylistClick = (id: string) => {
-    handlePlaylistIdChange(id);
+  const handlePlaylistClick = (playlist: SimplifiedPlaylist) => {
+    handlePlaylistIdChange(playlist.id);
+    setPlaylistName(playlist.name);
     setOpen(false);
   };
 
@@ -60,7 +62,6 @@ const FromMyPlaylist = ({
         placeholder="Playlist Name: string"
         ref={refs.setReference}
         onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
         {...getReferenceProps}
       />
       {open && (
@@ -81,7 +82,7 @@ const FromMyPlaylist = ({
                     : "pb-1"
                 )}
                 key={playlist.id}
-                onClick={() => handlePlaylistClick(playlist.id)}
+                onClick={() => handlePlaylistClick(playlist)}
               >
                 {playlist.name}
               </button>
