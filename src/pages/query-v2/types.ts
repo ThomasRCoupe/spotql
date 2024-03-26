@@ -12,3 +12,7 @@ export interface ClauseDraft {
   source?: SourceDraft;
   selector?: SelectorDraft;
 }
+
+export interface QueryDraft {
+  clauses: ClauseDraft[];
+}

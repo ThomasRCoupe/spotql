@@ -1,9 +1,9 @@
 import Panel from "../../design-system/Panel";
 import QueryClause from "./builder/QueryClause";
-import { useClauseReducer } from "./builder/hooks/useClauseReducer";
+import { useQueryReducer } from "./builder/hooks/useQueryReducer";
 
 const QueryPageV2 = () => {
-  const [clause, dispatch] = useClauseReducer();
+  const [query, dispatch] = useQueryReducer();
 
   return (
     <>
@@ -11,15 +11,18 @@ const QueryPageV2 = () => {
         <div className="w-full h-full p-4 flex flex-col gap-2">
           <h1 className="text-3xl font-bold">SpotQL</h1>
           <h2 className="text-light-grey">Query Builder</h2>
-          <QueryClause
-            clause={clause}
-            onSelectorChange={(selector) =>
-              dispatch({ type: "selector-change", selector })
-            }
-            onSourceChange={(source) =>
-              dispatch({ type: "source-change", source })
-            }
-          />
+          {query.clauses.map((clause, index) => (
+            <QueryClause
+              key={index}
+              clause={clause}
+              onSelectorChange={(selector) =>
+                dispatch({ type: "selector-change", selector, index })
+              }
+              onSourceChange={(source) =>
+                dispatch({ type: "source-change", source, index })
+              }
+            />
+          ))}
         </div>
       </Panel>
     </>
