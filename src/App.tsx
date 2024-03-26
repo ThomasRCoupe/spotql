@@ -9,9 +9,9 @@ const App = () => (
   <div className="w-screen h-screen flex flex-col items-center gap-4 justify-center bg-black">
     <AuthGate>
       <Routes>
-        <Route path="/" element={<QueryPage />} />
+        <Route path="/" element={<QueryPageV2 />} />
         <Route path="/playground" element={<PlaygroundPage />} />
-        <Route path="/v2" element={<QueryPageV2 />} />
+        <Route path="/v1" element={<QueryPage />} />
       </Routes>
     </AuthGate>
   </div>

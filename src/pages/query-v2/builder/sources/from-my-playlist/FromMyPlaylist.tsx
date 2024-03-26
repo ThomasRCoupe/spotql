@@ -48,7 +48,7 @@ const FromMyPlaylist = ({
 
   const handlePlaylistClick = (playlist: SimplifiedPlaylist) => {
     handlePlaylistIdChange(playlist.id);
-    setPlaylistName(playlist.name);
+    setPlaylistName(`"${playlist.name}"`);
     setOpen(false);
   };
 

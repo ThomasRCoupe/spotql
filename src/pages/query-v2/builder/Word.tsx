@@ -7,7 +7,7 @@ interface WordProps {
 }
 
 const Word = ({ padding = true, children }: WordProps) => (
-  <span className={clsx("h-8 flex items-center", padding && "px-2")}>
+  <span className={clsx("h-8 flex items-center", padding && "px-1")}>
     {children}
   </span>
 );

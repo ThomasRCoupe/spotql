@@ -48,7 +48,7 @@ const SuggestionWord = <TSuggestion extends Suggestion>({
       <Word padding={false}>
         <button
           className={clsx(
-            "h-8 px-2 rounded-full bg-transparent",
+            "h-8 px-1 rounded-lg bg-transparent",
             open ? "bg-white/10" : "hover:bg-white/5"
           )}
           ref={refs.setReference}

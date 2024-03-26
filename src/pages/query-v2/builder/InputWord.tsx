@@ -53,7 +53,7 @@ const InputWord = React.forwardRef<HTMLInputElement, InputWordProps>(
 
       context.font = getComputedStyle(localRef.current as HTMLElement).font!;
       const width = context.measureText(text).width;
-      return `${width + 16}px`;
+      return `${width + 8}px`;
     };
 
     const mergeRefs = (instance: HTMLInputElement | null) => {
@@ -68,6 +68,7 @@ const InputWord = React.forwardRef<HTMLInputElement, InputWordProps>(
 
     const handleInputFocus = () => {
       setFocussed(true);
+      handleChange("");
       handleFocus?.();
     };
 
@@ -81,7 +82,7 @@ const InputWord = React.forwardRef<HTMLInputElement, InputWordProps>(
         <input
           ref={mergeRefs}
           className={clsx(
-            "h-8 px-2 rounded-full bg-transparent outline-none",
+            "h-8 px-1 rounded-lg bg-transparent outline-none",
             focussed ? "bg-white/10" : "hover:bg-white/5"
           )}
           type="text"
@@ -90,7 +91,7 @@ const InputWord = React.forwardRef<HTMLInputElement, InputWordProps>(
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           placeholder={placeholder}
-          style={{ width: "16px", minWidth: "16px" }}
+          style={{ width: "12px", minWidth: "12px" }}
         />
       </Word>
     );

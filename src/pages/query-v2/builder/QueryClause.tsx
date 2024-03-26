@@ -16,11 +16,13 @@ const QueryClause = ({
 }: QueryClauseProps) => {
   return (
     <div className="flex">
-      <SelectorSubclause
-        selector={clause.selector}
-        onChange={handleSelectorChange}
-        suggestions={clause?.source ? getSelectors(clause) : []}
-      />
+      {clause.source && (
+        <SelectorSubclause
+          selector={clause.selector}
+          onChange={handleSelectorChange}
+          suggestions={clause?.source ? getSelectors(clause) : []}
+        />
+      )}
       <SourceSubclause
         source={clause.source}
         onChange={handleSourceChange}
